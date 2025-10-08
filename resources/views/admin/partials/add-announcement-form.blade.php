@@ -29,11 +29,13 @@
 		</x-modal>
     </header>
 
-	<ul class="list-disc list-inside">
-		<li><a href="#" class="text-panache">View Users</a></li>
-		<li><a href="#" class="text-panache">Add User</a></li>
-		<li><a href="#" class="text-panache">Edit User</a></li>
-		<li><a href="#" class="text-panache">Delete User</a></li>
-	</ul>
+	@forelse ($announcements as $announcement)
+		<div class="mb-2 flex">
+			<div class="font-bold flex-grow">{{ $announcement->title }}</div>
+			<div>{{ $announcement->date->format('F j, Y') }}</div>
+		</div>
+	@empty
+		<div class="text-gray-500">{{ __('No announcements yet.') }}</div>
+	@endforelse
 
 </section>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Announcement;
 use App\Http\Requests\AnnouncementAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,8 +17,7 @@ class AnnouncementController extends Controller
      */
     public function add(AnnouncementAddRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
-        $request->user()->save();
+        Announcement::create($request->validated());
 
         return Redirect::route('admin')->with('status', 'announcement-added');
     }

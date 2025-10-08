@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Activity
+class Activity extends Model
 {
-    /** @use HasFactory<\Database\Factories\AcouncementFactory> */
+    /** @use HasFactory<\Database\Factories\ActivityFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -22,15 +23,6 @@ class Activity
         'cost',
         'how_to_join',
         'content',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'remember_token',
     ];
 
     /**

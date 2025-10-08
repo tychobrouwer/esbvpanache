@@ -41,7 +41,7 @@
                             <x-dropdown-link :href="route('history')">
                                 {{ __('History') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('committees')">
                                 {{ __('Committees') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('profile.edit')">

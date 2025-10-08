@@ -3,11 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
-class Ancouncement
+class Announcement extends Model
 {
-    /** @use HasFactory<\Database\Factories\AcouncementFactory> */
+    /** @use HasFactory<\Database\Factories\AnnouncementFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -19,15 +20,7 @@ class Ancouncement
         'title',
         'date',
         'content',
-    ];
-
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'remember_token',
+        'user_id',
     ];
 
     /**
@@ -38,7 +31,7 @@ class Ancouncement
     protected function casts(): array
     {
         return [
-			'date' => 'date',
+            'date' => 'date',
         ];
     }
 }
