@@ -44,7 +44,7 @@
                             <x-dropdown-link :href="route('committees')">
                                 {{ __('Committees') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('member-documents')">
                                 {{ __('Member Documents') }}
                             </x-dropdown-link>
                         </x-slot>

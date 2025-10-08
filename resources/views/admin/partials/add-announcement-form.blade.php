@@ -7,11 +7,12 @@
 			<h2 class="text-lg font-bold mb-4">{{ __('Add Announcement') }}</h2>
 			<form method="post" action="{{ route('announcement.add') }}" >
 				@csrf
+				@method('post')
+
 				<div class="mb-4">
 					<x-input-label for="add_announcement_title" :value="__('Title')" />
 					<x-text-input id="add_announcement_title" name="title" class="mt-1 block w-full" />
-					<x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" />
-
+					<!-- <x-input-error :messages="$errors->updatePassword->get('current_password')" class="mt-2" /> -->
 				</div>
 				<div class="mb-4">
 					<x-input-label for="add_announcement_date" :value="__('Date')" />
@@ -30,9 +31,18 @@
     </header>
 
 	@forelse ($announcements as $announcement)
-		<div class="mb-2 flex">
-			<div class="font-bold flex-grow">{{ $announcement->title }}</div>
-			<div>{{ $announcement->date->format('F j, Y') }}</div>
+		<div class="mb-2 flex justify-between items-center">
+			<div>
+				<div class="font-bold flex-grow">{{ $announcement->title }}</div>
+				<div>{{ $announcement->date->format('F j, Y') }}</div>
+			</div>
+			<form method="post" action="{{ route('announcement.delete') }}">
+				@csrf
+				@method('delete')
+
+				<input type="hidden" name="announcement_id" value="{{ $announcement->id }}">
+				<x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+			</form>
 		</div>
 	@empty
 		<div class="text-gray-500">{{ __('No announcements yet.') }}</div>

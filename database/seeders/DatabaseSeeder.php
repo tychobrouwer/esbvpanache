@@ -25,5 +25,14 @@ class DatabaseSeeder extends Seeder
             'date' => now(),
             'content' => 'This is a sample announcement content.',
         ]);
+
+        Activity::factory(10)->create([
+            'title' => 'Sample Activity',
+            'date' => now()->addDays(10),
+            'location' => 'Sample Location',
+            'cost' => 'Free',
+            'how_to_join' => 'Register online',
+            'content' => 'This is a sample activity description.',
+        ]);
     }
 }

@@ -25,8 +25,15 @@ class AnnouncementController extends Controller
     /**
      * Delete the announcement.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function delete(Request $request): RedirectResponse
     {
-        return Redirect::route('admin');
+        $request->validate([
+            'announcement_id' => 'required|exists:announcements,id',
+        ]);
+
+        $announcement = Announcement::find($request->announcement_id);
+        $announcement->delete();
+
+        return Redirect::route('admin')->with('status', 'announcement-deleted');
     }
 }
