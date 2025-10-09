@@ -16,6 +16,10 @@ Route::get('/contact', function () { return view('contact'); })->name('contact')
 Route::get('/history', function () { return view('history'); })->name('history');
 Route::get('/committees', function () { return view('committees'); })->name('committees');
 Route::get('/member-documents', function () { return view('member-documents'); })->name('member-documents');
+Route::get('/training-and-playing', function () { return view('training-and-playing'); })->name('training-and-playing');
+Route::get('/membership', function () { return view('membership'); })->name('membership');
+Route::get('/competition', function () { return view('competition'); })->name('competition');
+Route::get('/pictures', function () { return view('pictures'); })->name('pictures');
 
 Route::get('/admin', [AdminController::class, 'index'], function () {
     return view('admin');

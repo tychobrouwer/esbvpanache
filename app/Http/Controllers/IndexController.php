@@ -10,8 +10,8 @@ class IndexController extends Controller
 {
     public function index(): View
     {
-        $announcements = Announcement::orderBy('date', 'desc')->take(5)->get();
-        $activities = Activity::orderBy('date', 'desc')->take(5)->get();
+        $announcements = Announcement::orderBy('date', 'desc')->take(6)->get();
+        $activities = Activity::orderBy('date', 'desc')->take(6)->get();
 
         return view('index', compact('announcements', 'activities'));
     }

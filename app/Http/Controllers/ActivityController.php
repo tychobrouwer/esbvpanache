@@ -25,7 +25,7 @@ class ActivityController extends Controller
     /**
      * Delete the activity.
      */
-    public function destroy(Request $request): RedirectResponse
+    public function delete(Request $request): RedirectResponse
     {
         return Redirect::route('admin');
     }

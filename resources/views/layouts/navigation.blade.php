@@ -1,6 +1,6 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-white border-b border-b-gray-100 border-t-4 border-t-panache">
     <!-- Primary Navigation Menu -->
-    <div class="w-full h-1 bg-panache"></div>
+    <!-- <div class="w-full h-1 bg-panache"></div> -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-around h-10">
             <div class="flex items-center">
@@ -35,7 +35,7 @@
                             <x-dropdown-link :href="route('board')">
                                 {{ __('Board') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('pictures')">
                                 {{ __('Pictures') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('history')">
@@ -66,13 +66,13 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('training-and-playing')">
                                 {{ __('Training & Playing') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('membership')">
                                 {{ __('Membership') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('profile.edit')">
+                            <x-dropdown-link :href="route('competition')">
                                 {{ __('Competition') }}
                             </x-dropdown-link>
                         </x-slot>

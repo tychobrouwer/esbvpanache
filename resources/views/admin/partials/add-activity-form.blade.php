@@ -26,10 +26,9 @@
 					<x-text-input id="add_activity_cost" name="cost" class="mt-1 block w-full" />
 				</div>
 				<div class="mb-4">
-					<x-input-label for="add_activity_join" :value="__('How to Join')" />
-					<x-text-input id="add_activity_join" name="join" class="mt-1 block w-full" />
+					<x-input-label for="add_activity_how_to_join" :value="__('How to Join')" />
+					<x-text-input id="add_activity_how_to_join" name="how_to_join" class="mt-1 block w-full" />
 				</div>
-
 				<div class="mb-4">
 					<x-input-label for="add_activity_content" :value="__('Content')" />
 					<x-text-area id="add_activity_content" name="content" class="mt-1 block w-full" />
