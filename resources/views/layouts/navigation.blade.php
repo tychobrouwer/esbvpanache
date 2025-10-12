@@ -11,7 +11,7 @@
 
             <div class="sm:flex sm:items-center sm:ms-6">
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('Home') }}
                     </x-nav-link>
@@ -79,19 +79,19 @@
                     </x-dropdown>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-nav-link :href="route('activities')" :active="request()->routeIs('activities')">
                         {{ __('Activities') }}
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-nav-link :href="url('https://esbvpanache.nl/toernooi')" :active="false">
                         {{ __('Panache Tournament') }}
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
                     </x-nav-link>

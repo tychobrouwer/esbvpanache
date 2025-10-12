@@ -1,7 +1,8 @@
 <x-app-layout>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <h1 class="p-6 text-gray-900 font-bold text-2xl flex">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
+        <x-header size="2xl">
             {{ __('Upcoming Activities') }}
-        </h1>
+        </x-header>
+        {!! __('upcoming_activities_message') !!}
     </div>
 </x-app-layout>

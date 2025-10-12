@@ -6,7 +6,6 @@ use App\Models\Activity;
 use App\Http\Requests\ActivityAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -17,9 +16,9 @@ class ActivityController extends Controller
      */
     public function add(ActivityAddRequest $request): RedirectResponse
     {
-        Activity::create($request->validated());
+        Activity::create(attributes: $request->validated());
 
-        return Redirect::route('admin')->with('status', 'activity-added');
+        return redirect()->back()->with('success', 'activity-added');
     }
 
     /**
@@ -27,6 +26,13 @@ class ActivityController extends Controller
      */
     public function delete(Request $request): RedirectResponse
     {
-        return Redirect::route('admin');
+        $request->validate([
+            'activity_id' => 'required|exists:activities,id',
+        ]);
+
+        $activity = Activity::find($request->activity_id);
+        $activity->delete();
+
+        return redirect()->back()->with('success', 'activity-deleted');
     }
 }

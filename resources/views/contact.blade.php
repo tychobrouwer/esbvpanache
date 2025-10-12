@@ -1,38 +1,32 @@
 <x-app-layout>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <h1 class="p-6 text-gray-900 font-bold text-3xl flex">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
+        <x-header size="2xl">
             {{ __('Contact') }}
-        </h1>
-        <div class="px-6 pb-6 text-gray-900 flex">
-            <p>{!! __('board_contact') !!}</p>
-        </div>
-        <h2 class="px-6 text-gray-900 font-bold text-2xl flex">
-            {{ __('Board') }}
-        </h2>
-        <div class="px-6 pb-6 text-gray-900 flex">
+        </x-header>
+        <p>{!! __('board_contact') !!}</p>
+        <x-header size="2xl">
+            {{ __('Board')}}
+        </x-header>
+        <p>
             {{ __('Chairman') }} - Ata Chaga<br>
             {{ __('Vice-chairman') }} - Luc Broeders<br>
             {{ __('Secretary') }} - Tycho Brouwer<br>
             {{ __('Treasurer') }} - Yoni van Delft
-        </div>
-        <h2 class="px-6 text-gray-900 font-bold text-2xl flex">
+        </p>
+        <x-header size="2xl">
             {{ __('Confidential Contact Person') }}
-        </h2>
-        <div class="px-6 pb-6 text-gray-900 flex">
-            <p>{!! __('confidential_contact') !!}</p>
-        </div>
-        <h2 class="px-6 text-gray-900 font-bold text-2xl flex">
-            {{ __('Where can you find us?') }}
-        </h2>
-        <div class="px-6 pb-6 text-gray-900 flex">
-            <p>Student Sports Centre Eindhoven (SSCE):<br><br>
-
+        </x-header>
+        <p>{!! __('confidential_contact') !!}</p>
+        <x-header size="2xl">
+            {{ __('Where can you find us?')}}
+        </x-header>
+        <p>
+            Student Sports Centre Eindhoven (SSCE):<br><br>
             ESBV Panache<br>
             Onze Lieve Vrouwestraat 1<br>
             5612 AW Eindhoven<br>
             <a class="text-panache" href="https://ssceindhoven.tue.nl/en">Website SSCE</a><br><br>
-
-            {{ __('ssc_directions') }}</p>
-        </div>
+            {{ __('ssc_directions') }}
+        </p>
     </div>
 </x-app-layout>

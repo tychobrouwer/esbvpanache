@@ -3,9 +3,12 @@
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AnnouncementController;
+use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\LanguageSwitcher;
+use App\Livewire\CommitteeForm;
 
 Route::get('/', [IndexController::class, 'index'], function () {
     return view('index');
@@ -14,7 +17,9 @@ Route::get('/board', function () { return view('board'); })->name('board');
 Route::get('/activities', function () { return view('activities'); })->name('activities');
 Route::get('/contact', function () { return view('contact'); })->name('contact');
 Route::get('/history', function () { return view('history'); })->name('history');
-Route::get('/committees', function () { return view('committees'); })->name('committees');
+Route::get('/committees', [CommitteeController::class, 'index'], function () {
+    return view('committees');
+})->name('committees');
 Route::get('/member-documents', function () { return view('member-documents'); })->name('member-documents');
 Route::get('/training-and-playing', function () { return view('training-and-playing'); })->name('training-and-playing');
 Route::get('/membership', function () { return view('membership'); })->name('membership');
@@ -41,5 +46,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/activity', [ActivityController::class, 'delete'])->name('activity.delete');
 });
 
+Route::middleware('auth')->group(function () {
+    Route::post('/committee', [CommitteeController::class, 'add'])->name('committee.add');
+    Route::delete('/committee', [CommitteeController::class, 'delete'])->name('committee.delete');
+});
 
 require __DIR__.'/auth.php';

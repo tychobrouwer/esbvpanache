@@ -6,11 +6,11 @@
 
 @php
 $maxWidth = [
-    'sm' => 'sm:max-w-sm',
-    'md' => 'sm:max-w-md',
-    'lg' => 'sm:max-w-lg',
-    'xl' => 'sm:max-w-xl',
-    '2xl' => 'sm:max-w-2xl',
+    'sm' => 'sm:max-w-lg',
+    'md' => 'sm:max-w-xl',
+    'lg' => 'sm:max-w-2xl',
+    'xl' => 'sm:max-w-3xl',
+    '2xl' => 'sm:max-w-4xl',
 ][$maxWidth];
 @endphp
 

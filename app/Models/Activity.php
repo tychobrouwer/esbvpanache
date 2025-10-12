@@ -21,7 +21,7 @@ class Activity extends Model
         'date',
         'location',
         'cost',
-        'how_to_join',
+        'join',
         'content',
     ];
 

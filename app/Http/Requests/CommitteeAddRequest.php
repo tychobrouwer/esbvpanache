@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class AnnouncementAddRequest extends FormRequest
+class CommitteeAddRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -17,9 +17,9 @@ class AnnouncementAddRequest extends FormRequest
         return [
             'title_en' => ['required', 'string', 'max:255'],
             'title_nl' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date'],
-            'content_en' => ['required', 'string'],
-            'content_nl' => ['required', 'string'],
+            'description_en' => ['string'],
+            'description_nl' => ['string'],
+            'is_general' => ['required', 'boolean'],
         ];
     }
 }

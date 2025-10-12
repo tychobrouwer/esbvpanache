@@ -6,7 +6,6 @@ use App\Models\Announcement;
 use App\Http\Requests\AnnouncementAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -19,7 +18,7 @@ class AnnouncementController extends Controller
     {
         Announcement::create($request->validated());
 
-        return Redirect::route('admin')->with('status', 'announcement-added');
+        return redirect()->back()->with('success', 'announcement-added');
     }
 
     /**

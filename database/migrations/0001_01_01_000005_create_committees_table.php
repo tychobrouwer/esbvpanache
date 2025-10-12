@@ -11,19 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('committees', function (Blueprint $table) {
             $table->id();
             $table->string('title_en');
             $table->string('title_nl');
-            $table->date('date');
-            $table->string('location_en');
-            $table->string('location_nl');
-            $table->string('cost_en');
-            $table->string('cost_nl');
-            $table->string('join_en');
-            $table->string('join_nl');
-            $table->text('content_en');
-            $table->text('content_nl');
+            $table->text('description_en');
+            $table->text('description_nl');
+            $table->boolean('is_general');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('committees');
     }
 };

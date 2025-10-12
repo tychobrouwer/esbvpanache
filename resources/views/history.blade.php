@@ -1,10 +1,8 @@
 <x-app-layout>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <h1 class="p-6 text-gray-900 font-bold text-3xl flex">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
+        <x-header size="2xl">
             {{ __('History') }}
-        </h1>
-        <div class="px-6 pb-6 text-gray-900 flex">
-            <p>{!! __('history_message') !!}</p>
-        </div>
+        </x-header>
+        <p>{!! __('history_message') !!}</p>
     </div>
 </x-app-layout>

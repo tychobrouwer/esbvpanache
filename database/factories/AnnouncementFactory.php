@@ -19,9 +19,11 @@ class AnnouncementFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => fake()->sentence(),
+            'title_en' => fake()->sentence(),
+            'title_nl' => fake()->sentence(),
             'date' => fake()->date(),
-            'content' => fake()->paragraph(),
+            'content_en' => fake()->paragraph(),
+            'content_nl' => fake()->paragraph(),
         ];
     }
 }

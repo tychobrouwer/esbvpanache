@@ -1,22 +1,16 @@
 <x-app-layout>
-    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-        <h2 class="p-6 text-gray-900 font-bold text-3xl flex">
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
+        <x-header size="2xl">
             {{ __('By-Laws') }}
-        </h2>
-        <div class="px-6 pb-6 text-gray-900 flex">
-            <p>{!! __('by_laws_message') !!}</p>
-        </div>
-        <h2 class="px-6 pb-6 text-gray-900 font-bold text-3xl flex">
+        </x-header>
+        <p>{!! __('by_laws_message') !!}</p>
+        <x-header size="2xl">
             {{__('Member List') }}
-        </h2>
-        <div class="px-6 pb-6 text-gray-900 flex">
-            <p>{!! __('member_list_message') !!}</p>
-        </div>
-        <h2 class="px-6 pb-6 text-gray-900 font-bold text-3xl flex">
+        </x-header>
+        <p>{!! __('member_list_message') !!}</p>
+        <x-header size="2xl">
             {{__('Privacy Statement') }}
-        </h2>
-        <div class="px-6 pb-6 text-gray-900 flex">
-            <p>{!! __('privacy_statement_message') !!}</p>
-        </div>
+        </x-header>
+        <p>{!! __('privacy_statement_message') !!}</p>
     </div>
 </x-app-layout>

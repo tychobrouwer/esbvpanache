@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
-class ActivityFactory extends Factory
+class AnnouncementFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -21,15 +21,8 @@ class ActivityFactory extends Factory
         return [
             'title_en' => fake()->sentence(),
             'title_nl' => fake()->sentence(),
-            'date' => fake()->date(),
-            'location_en' => fake()->words(3),
-            'location_nl' => fake()->words(3),
-            'cost_en' => fake()->words(3),
-            'cost_nl' => fake()->words(3),
-            'join_nl' => fake()->sentence(),
-            'join_en' => fake()->sentence(),
-            'content_en' => fake()->paragraph(),
-            'content_nl' => fake()->paragraph(),
+            'description_en' => fake()->paragraph(),
+            'description_nl' => fake()->paragraph(),
         ];
     }
 }
