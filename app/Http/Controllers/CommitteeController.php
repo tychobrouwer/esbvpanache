@@ -6,7 +6,6 @@ use App\Models\Committee;
 use App\Http\Requests\CommitteeAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
 class CommitteeController extends Controller
@@ -16,9 +15,13 @@ class CommitteeController extends Controller
      */
     public function add(CommitteeAddRequest $request): RedirectResponse
     {
-        Committee::create(attributes: $request->validated());
+        \Log::info('Adding committee', $request->all());
 
-        return redirect()->back()->with('success', 'committee-added');
+
+        Committee::create($request->validated());
+
+        return back()->with('status', 'committee-added');
+
     }
 
     /**

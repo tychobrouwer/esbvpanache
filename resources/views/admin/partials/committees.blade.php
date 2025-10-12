@@ -50,7 +50,7 @@
     </div>
 </section>
 
-<x-modal name="add-committee" :show="false" maxWidth="lg">
+<x-modal name="add-committee" :show="$errors->addCommittee->any()" maxWidth="lg">
     <form method="post" action="{{ route('committee.add') }}" x-data="committeeForm()">
         @csrf
         @method('post')
@@ -65,35 +65,35 @@
                 <x-input-label :value="__('Title')" />
                 <div x-show="lang === 'en'">
                     <x-text-input name="title_en" x-model="form.translations.en.title" />
-                    <x-input-error :messages="$errors->get('title_en')" class="mt-2" />
+                    <x-input-error :messages="$errors->addCommittee->get('title_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
                     <x-text-input name="title_nl" x-model="form.translations.nl.title" />
-                    <x-input-error :messages="$errors->get('title_nl')" class="mt-2" />
+                    <x-input-error :messages="$errors->addCommittee->get('title_nl')" class="mt-2" />
                 </div>
 
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Date')" />
                 <x-text-input name="date" />
-                <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                <x-input-error :messages="$errors->addCommittee->get('date')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4">
             <x-input-label :value="__('Content')" />
             <div x-show="lang === 'en'">
-                <x-text-area name="content_en" x-model="form.translations.en.description" />
-                <x-input-error :messages="$errors->get('content_en')" class="mt-2" />
+                <x-text-area name="description_en" x-model="form.translations.en.description" />
+                <x-input-error :messages="$errors->addCommittee->get('description_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
-                <x-text-area name="content_nl" x-model="form.translations.nl.description" />
-                <x-input-error :messages="$errors->get('content_nl')" class="mt-2" />
+                <x-text-area name="description_nl" x-model="form.translations.nl.description" />
+                <x-input-error :messages="$errors->addCommittee->get('description_nl')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4 flex items-center gap-2">
             <x-input-label :value="__('Is General Committee')" />
             <x-checkbox-input name="is_general" x-model="form.is_general" />
-            <x-input-error :messages="$errors->get('is_general')" class="mt-2" />
+            <x-input-error :messages="$errors->addCommittee->get('is_general')" class="mt-2" />
         </div>
         <div class="flex justify-end">
             <x-secondary-button @click="$dispatch('close-modal', 'add-committee')"

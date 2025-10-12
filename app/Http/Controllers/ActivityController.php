@@ -6,8 +6,6 @@ use App\Models\Activity;
 use App\Http\Requests\ActivityAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class ActivityController extends Controller
 {
@@ -15,10 +13,10 @@ class ActivityController extends Controller
      * Add the activity information.
      */
     public function add(ActivityAddRequest $request): RedirectResponse
-    {
+    {        
         Activity::create(attributes: $request->validated());
 
-        return redirect()->back()->with('success', 'activity-added');
+        return back()->with('status', value: 'activity-added');
     }
 
     /**

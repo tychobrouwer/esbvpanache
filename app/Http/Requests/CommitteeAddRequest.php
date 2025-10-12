@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class CommitteeAddRequest extends FormRequest
 {
@@ -22,4 +21,16 @@ class CommitteeAddRequest extends FormRequest
             'is_general' => ['required', 'boolean'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            
+        ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->validateWithBag('addCommittee');
+    }   
 }

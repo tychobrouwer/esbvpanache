@@ -27,7 +27,7 @@
     @endforelse
 </section>
 
-<x-modal name="add-announcement" :show="false" maxWidth="lg">
+<x-modal name="add-announcement" :show="$errors->addAnnouncement->any()" maxWidth="lg">
     <form method="post" action="{{ route('announcement.add') }}" x-data="announcementForm()">
         @csrf
         @method('post')
@@ -42,29 +42,29 @@
                 <x-input-label :value="__('Title')" />
                 <div x-show="lang === 'en'">
                     <x-text-input name="title_en" x-model="form.translations.en.title" />
-                    <x-input-error :messages="$errors->get('title_en')" class="mt-2" />
+                    <x-input-error :messages="$errors->addAnnouncement->get('title_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
                     <x-text-input name="title_nl" x-model="form.translations.nl.title" />
-                    <x-input-error :messages="$errors->get('title_nl')" class="mt-2" />
+                    <x-input-error :messages="$errors->addAnnouncement->get('title_nl')" class="mt-2" />
                 </div>
 
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Date')" />
                 <x-text-input id="add_announcement_date" name="date" />
-                <x-input-error :messages="$errors->get('date')" class="mt-2" />
+                <x-input-error :messages="$errors->addAnnouncement->get('date')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4">
             <x-input-label :value="__('Content')" />
             <div x-show="lang === 'en'">
                 <x-text-area name="content_en" x-model="form.translations.en.content" />
-                <x-input-error :messages="$errors->get('content_en')" class="mt-2" />
+                <x-input-error :messages="$errors->addAnnouncement->get('content_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-text-area name="content_nl" x-model="form.translations.nl.content" />
-                <x-input-error :messages="$errors->get('content_nl')" class="mt-2" />
+                <x-input-error :messages="$errors->addAnnouncement->get('content_nl')" class="mt-2" />
             </div>
         </div>
         <div class="flex justify-end">

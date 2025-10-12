@@ -7,7 +7,6 @@ use App\Http\Requests\AnnouncementAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
 
 class AnnouncementController extends Controller
 {
@@ -16,9 +15,9 @@ class AnnouncementController extends Controller
      */
     public function add(AnnouncementAddRequest $request): RedirectResponse
     {
-        Announcement::create($request->validated());
+        Announcement::create(attributes: $request->validated());
 
-        return redirect()->back()->with('success', 'announcement-added');
+        return back()->with('status', value: 'announcement-added');
     }
 
     /**

@@ -3,7 +3,6 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class AnnouncementAddRequest extends FormRequest
 {
@@ -22,4 +21,16 @@ class AnnouncementAddRequest extends FormRequest
             'content_nl' => ['required', 'string'],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            
+        ];
+    }
+
+    public function withValidator($validator)
+    {
+        $validator->validateWithBag('addAnnouncement');
+    }   
 }
