@@ -21,7 +21,7 @@ Route::get('/membership', function () { return view('membership'); })->name('mem
 Route::get('/competition', function () { return view('competition'); })->name('competition');
 Route::get('/pictures', function () { return view('pictures'); })->name('pictures');
 
-Route::get('/panache.ical', [CalendarController::class, 'getICAL']);
+Route::get('/panache.ics', [CalendarController::class, 'getICAL']);
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth'])->name('admin');
 
