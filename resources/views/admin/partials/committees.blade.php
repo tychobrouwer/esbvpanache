@@ -15,7 +15,9 @@
             </x-header>
             @forelse ($general_committees as $committee)
                 <div class="mb-2 flex justify-between items-center">
-                    <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">{{ $committee->title_en }}</div>
+                    <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
+                        {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
+                    </div>
                     <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                         @csrf
                         @method('delete')
@@ -34,7 +36,9 @@
             </x-header>
             @forelse ($non_general_committees as $committee)
                 <div class="mb-2 flex justify-between items-center">
-                    <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">{{ $committee->title_en }}</div>
+                    <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
+                        {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
+                    </div>
                     <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                         @csrf
                         @method('delete')

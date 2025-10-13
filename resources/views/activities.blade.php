@@ -3,6 +3,6 @@
         <x-header size="2xl">
             {{ __('Upcoming Activities') }}
         </x-header>
-        {!! __('upcoming_activities_message') !!}
+        <p>{!! __('upcoming_activities_message') !!}</p>
     </div>
 </x-app-layout>

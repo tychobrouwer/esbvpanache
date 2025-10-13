@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Activity;
 use App\Http\Requests\ActivityAddRequest;
+use App\Http\Controllers\CalendarController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
@@ -16,6 +17,7 @@ class ActivityController extends Controller
     public function create(ActivityAddRequest $request): RedirectResponse
     {        
         Activity::create(attributes: $request->validated());
+        CalendarController::update();
 
         return redirect()->back()->with('status', value: 'activity-created');
     }

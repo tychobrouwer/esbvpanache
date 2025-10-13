@@ -8,6 +8,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\App;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/board', function () { return view('board'); })->name('board');
@@ -21,7 +22,9 @@ Route::get('/membership', function () { return view('membership'); })->name('mem
 Route::get('/competition', function () { return view('competition'); })->name('competition');
 Route::get('/pictures', function () { return view('pictures'); })->name('pictures');
 
-Route::get('/panache.ics', [CalendarController::class, 'getICAL']);
+Route::get('/panache.ics', [CalendarController::class, 'index']);
+
+Route::get('/locale-switch', [])->name('locale-switch');
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth'])->name('admin');
 

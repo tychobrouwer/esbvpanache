@@ -17,9 +17,9 @@
 			@forelse ($general_committees as $committee)
 				<div class="py-1">
 					<x-header size="lg">
-						{{ $committee->title_en }}
+						{{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
 					</x-header>
-					{!! $committee->description_en !!}
+					{!! App::isLocale('nl') ? $committee->description_nl : $committee->description_en !!}
 				</div>
 			@empty
 				<div class="py-1 text-gray-500">
@@ -36,9 +36,9 @@
 			@forelse ($non_general_committees as $committee)
 				<div class="py-1">
 					<x-header size="lg">
-						{{ $committee->title_en }}
+						{{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
 					</x-header>
-					{!! $committee->description_en !!}
+					{!! App::isLocale('nl') ? $committee->description_nl : $committee->description_en !!}
 				</div>
 			@empty
 				<div class="py-1 text-gray-500">

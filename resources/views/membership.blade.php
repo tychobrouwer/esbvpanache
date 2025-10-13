@@ -13,15 +13,15 @@
             {{ __('Types of Membership') }}
         </x-header>
         <p>{!! __('types_of_membership_message') !!}</p>
-        <x-header size="2xl">
+        <x-header size="xl">
             {{ __('Competition Player (60 Euro)') }}
         </x-header>
         <p>{!! __('competition_player_message') !!}</p>
-        <x-header size="2xl">
+        <x-header size="xl">
             {{ __('Recreant Player (40 Euro)') }}
         </x-header>
         <p>{!! __('recreant_player_message') !!}</p>
-        <x-header size="2xl">
+        <x-header size="xl">
             {{ __('Contributor Player (30 Euro)') }}
         </x-header>
         <p>{!! __('contributor_player_message') !!}</p>

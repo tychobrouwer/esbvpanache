@@ -96,6 +96,12 @@
                         {{ __('Contact') }}
                     </x-primary-nav-link>
                 </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
+                    <x-primary-nav-link :href="route('locale-switch')" :active="false">
+                        {{ App::isLocale('en') ? 'NL' : 'EN' }}
+                    </x-primary-nav-link>
+                </div>
             </div>
 
             <!-- Hamburger -->

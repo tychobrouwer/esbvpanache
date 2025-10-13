@@ -8,6 +8,7 @@ use App\Models\Activity;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Storage;
 
 class CalendarController extends Controller
 {
@@ -20,14 +21,8 @@ class CalendarController extends Controller
     /**
      * Show the committee list.
      */
-    public function getICAL()
+    public function update()
     {
-		// if ($this->lastCreated + 60 * 5 < time()) {
-		// 	return response()->file(storage_path('app/public/panache.ics'));
-		// }
-
-        $activities = Activity::get();
-
         $icalData  = "BEGIN:VCALENDAR\r\n";
         $icalData .= "VERSION:2.0\r\n";
         $icalData .= "PRODID:-//ESBVPanache//Calendar//EN\r\n";
@@ -35,6 +30,7 @@ class CalendarController extends Controller
 
         $now = new DateTime('now', new DateTimeZone('UTC'));
 
+        $activities = Activity::get();
         foreach ($activities as $activity) {
             $icalData .= "BEGIN:VENENT\r\n";
             $icalData .= "UID:" . preg_replace('/\s+/', '_', strlower($activities->title)) . "-" . $activities->date->format('Ymd\THis\Z') . "@esbvpanache.nl\r\n";
@@ -65,7 +61,7 @@ class CalendarController extends Controller
         $end = new DateTime('2025-01-09 23:15', new DateTimeZone('UTC'));
 
         $icalData .= "BEGIN:VENENT\r\n";
-        $icalData .= "UID:training-monday@esbvpanache.nl\r\n";
+        $icalData .= "UID:training-thursday@esbvpanache.nl\r\n";
         $icalData .= "DTSTAMP:" . $now->format('Ymd\THis\Z') . "\r\n";
         $icalData .= "DTSTART:" . $start->format('Ymd\THis\Z') . "\r\n";
         $icalData .= "DTEND:" . $end->format('Ymd\THis\Z') . "\r\n";
@@ -76,6 +72,12 @@ class CalendarController extends Controller
         $icalData .= "END:VENENT\r\n";
 
         $icalData .= "END:VCALENDAR\r\n";
+
+        Storage::disk('local')->put('panache.ics', $icalData);
+    }
+
+    public function index() {
+        $icalData = Storage::disk('local')->get('panache.ics');
 
         return response($icalData, 200)->header('Content-Type', 'text/calendar');
     }
