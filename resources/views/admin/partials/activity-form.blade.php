@@ -17,10 +17,10 @@
     @forelse ($activities as $activity)
         <div class="mb-2 flex justify-between items-center">
             <div>
-                <div class="font-bold flex-grow">{{ $activity->title_en }}</div>
+                <div class="font-semibold flex-grow">{{ $activity->title_en }}</div>
                 <div>{{ $activity->date->format('F j, Y') }}</div>
             </div>
-            <form method="post" action="{{ route('activity.delete') }}">
+            <form method="post" action="{{ route('activity.destroy') }}">
                 @csrf
                 @method('delete')
 
@@ -34,14 +34,15 @@
 </section>
 
 <x-modal name="add-activity" :show="$errors->addActivity->any()" maxWidth="lg">
-    <form method="post" action="{{ route('activity.add') }}" x-data="activityForm()">
+    <form method="post" action="{{ route('activity.create') }}" x-data="activityForm()">
         @csrf
         @method('post')
 
-        <div class="flex md:gap-4 flex-col md:flex-row">
-            <h2 class="text-lg font-bold mb-4 flex-grow">{{ __('Add Activity') }}</h2>
+        <x-header size="xl" class="flex md:gap-4 flex-col md:flex-row">
+            <span class="flex-grow">{{ __('Add Activity') }}</span>
             <x-language-switcher x-model="lang" />
-        </div>
+        </x-header>
+        
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Title')" />

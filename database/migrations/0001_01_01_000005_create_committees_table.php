@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title_en');
             $table->string('title_nl');
-            $table->text('description_en');
-            $table->text('description_nl');
+            $table->text('description_en')->nullable();
+            $table->text('description_nl')->nullable();
             $table->boolean('is_general');
             $table->timestamps();
         });

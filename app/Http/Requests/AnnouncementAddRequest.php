@@ -14,11 +14,11 @@ class AnnouncementAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title_en' => ['required', 'string', 'max:255'],
-            'title_nl' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date'],
-            'content_en' => ['required', 'string'],
-            'content_nl' => ['required', 'string'],
+            'title_en' => 'required|string|max:255',
+            'title_nl' => 'required|string|max:255',
+            'date' => 'required|date',
+            'content_en' => 'required|string',
+            'content_nl' => 'required|string',
         ];
     }
 

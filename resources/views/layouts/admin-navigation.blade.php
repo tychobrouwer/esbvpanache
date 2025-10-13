@@ -4,13 +4,13 @@
         <div class="flex justify-between h-8">
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 @if( Route::is('admin') )
-                    <x-nav-link :href="route('index')" :active="false">
+                    <x-primary-nav-link :href="route('index')" :active="false">
                         {{ __('Back to Website') }}
-                    </x-nav-link>
+                    </x-primary-nav-link>
                 @else
-                    <x-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
+                    <x-primary-nav-link :href="route('admin')" :active="request()->routeIs('admin')">
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+                    </x-primary-nav-link>
                 @endif
             </div>
 
@@ -30,7 +30,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
+                        <x-dropdown-link :href="route('profile.edit')" :active="false">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
@@ -38,9 +38,8 @@
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
-                            <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                            <x-dropdown-link :href="route('logout')" :active="false"
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>

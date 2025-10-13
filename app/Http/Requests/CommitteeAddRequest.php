@@ -14,11 +14,11 @@ class CommitteeAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title_en' => ['required', 'string', 'max:255'],
-            'title_nl' => ['required', 'string', 'max:255'],
-            'description_en' => ['string'],
-            'description_nl' => ['string'],
-            'is_general' => ['required', 'boolean'],
+            'title_en' => 'required|string|max:255',
+            'title_nl' => 'required|string|max:255',
+            'description_en' => 'nullable|string',
+            'description_nl' => 'nullable|string',
+            'is_general' => 'required|boolean',
         ];
     }
 

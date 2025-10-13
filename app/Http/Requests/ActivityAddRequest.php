@@ -14,21 +14,20 @@ class ActivityAddRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title_en' => ['required', 'string', 'max:255'],
-            'title_nl' => ['required', 'string', 'max:255'],
-            'date' => ['required', 'date'],
-            'location_en' => ['required', 'string', 'max:255'],
-            'location_nl' => ['required', 'string', 'max:255'],
-            'cost_en' => ['required', 'string', 'max:255'],
-            'cost_nl' => ['required', 'string', 'max:255'],
-            'join_en' => ['required', 'string', 'max:255'],
-            'join_nl' => ['required', 'string', 'max:255'],
-            'content_en' => ['required', 'string'],
-            'content_nl' => ['required', 'string'],
+            'title_en' => 'required|string|max:255',
+            'title_nl' => 'required|string|max:255',
+            'date' => 'required|date',
+            'location_en' => 'required|string|max:255',
+            'location_nl' => 'required|string|max:255',
+            'cost_en' => 'required|string|max:255',
+            'cost_nl' => 'required|string|max:255',
+            'join_en' => 'required|string|max:255',
+            'join_nl' => 'required|string|max:255',
+            'content_en' => 'required|string',
+            'content_nl' => 'required|string',
         ];
     }
 
-    
     public function messages()
     {
         return [

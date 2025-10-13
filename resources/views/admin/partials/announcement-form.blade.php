@@ -11,10 +11,10 @@
     @forelse ($announcements as $announcement)
         <div class="mb-2 flex justify-between items-center">
             <div>
-                <div class="font-bold flex-grow">{{ $announcement->title_en }}</div>
+                <div class="font-semibold flex-grow">{{ $announcement->title_en }}</div>
                 <div>{{ $announcement->date->format('F j, Y') }}</div>
             </div>
-            <form method="post" action="{{ route('announcement.delete') }}">
+            <form method="post" action="{{ route('announcement.destroy') }}">
                 @csrf
                 @method('delete')
 
@@ -28,14 +28,14 @@
 </section>
 
 <x-modal name="add-announcement" :show="$errors->addAnnouncement->any()" maxWidth="lg">
-    <form method="post" action="{{ route('announcement.add') }}" x-data="announcementForm()">
+    <form method="post" action="{{ route('announcement.create') }}" x-data="announcementForm()">
         @csrf
         @method('post')
 
-        <div class="flex md:gap-4 flex-col md:flex-row">
-            <h2 class="text-lg font-bold mb-4 flex-grow">{{ __('Add Announcement') }}</h2>
+        <x-header size="xl" class="flex md:gap-4 flex-col md:flex-row">
+            <span class="flex-grow">{{ __('Add Announcement') }}</span>
             <x-language-switcher x-model="lang" />
-        </div>
+        </x-header>
 
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-4 flex-grow">

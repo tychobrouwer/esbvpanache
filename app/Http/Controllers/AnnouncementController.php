@@ -13,17 +13,18 @@ class AnnouncementController extends Controller
     /**
      * Add the announcement information.
      */
-    public function add(AnnouncementAddRequest $request): RedirectResponse
+    public function create(AnnouncementAddRequest $request): RedirectResponse
     {
         Announcement::create(attributes: $request->validated());
 
-        return back()->with('status', value: 'announcement-added');
+        return redirect()->back()->with('status', value: 'announcement-created');
+
     }
 
     /**
      * Delete the announcement.
      */
-    public function delete(Request $request): RedirectResponse
+    public function destroy(Request $request): RedirectResponse
     {
         $request->validate([
             'announcement_id' => 'required|exists:announcements,id',
@@ -32,6 +33,6 @@ class AnnouncementController extends Controller
         $announcement = Announcement::find($request->announcement_id);
         $announcement->delete();
 
-        return Redirect::route('admin')->with('status', 'announcement-deleted');
+        return redirect()->back()->with('success', 'announcement-destroyed');
     }
 }

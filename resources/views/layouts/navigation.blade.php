@@ -12,13 +12,13 @@
             <div class="sm:flex sm:items-center sm:ms-6">
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-nav-link :href="route('index')" :active="request()->routeIs('index')">
+                    <x-primary-nav-link :href="route('index')" :active="request()->routeIs('index')">
                         {{ __('Home') }}
-                    </x-nav-link>
+                    </x-primary-nav-link>
                 </div>
 
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <x-dropdown align="right" width="48">
+                    <x-dropdown align="right" width="w-48">
                         <x-slot name="trigger">
                             <x-primary-button>
                                 <div>{{ __('About Panache') }}</div>
@@ -32,19 +32,19 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('board')">
+                            <x-dropdown-link :href="route('board')" :active="request()->routeIs('board')">
                                 {{ __('Board') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('pictures')">
+                            <x-dropdown-link :href="route('pictures')" :active="request()->routeIs('pictures')">
                                 {{ __('Pictures') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('history')">
+                            <x-dropdown-link :href="route('history')" :active="request()->routeIs('history')">
                                 {{ __('History') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('committees')">
+                            <x-dropdown-link :href="route('committees')" :active="request()->routeIs('committees')">
                                 {{ __('Committees') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('member-documents')">
+                            <x-dropdown-link :href="route('member-documents')" :active="request()->routeIs('member-documents')">
                                 {{ __('Member Documents') }}
                             </x-dropdown-link>
                         </x-slot>
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="hidden sm:flex sm:items-center sm:ms-6">
-                    <x-dropdown align="right" width="48">
+                    <x-dropdown align="right" width="w-48">
                         <x-slot name="trigger">
                             <x-primary-button>
                                 <div>{{ __('Playing at Panache') }}</div>
@@ -66,13 +66,13 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('training-and-playing')">
+                            <x-dropdown-link :href="route('training-and-playing')" :active="request()->routeIs('training-and-playing')">
                                 {{ __('Training & Playing') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('membership')">
+                            <x-dropdown-link :href="route('membership')" :active="request()->routeIs('membership')">
                                 {{ __('Membership') }}
                             </x-dropdown-link>
-                            <x-dropdown-link :href="route('competition')">
+                            <x-dropdown-link :href="route('competition')" :active="request()->routeIs('competition')">
                                 {{ __('Competition') }}
                             </x-dropdown-link>
                         </x-slot>
@@ -80,21 +80,21 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-nav-link :href="route('activities')" :active="request()->routeIs('activities')">
+                    <x-primary-nav-link :href="route('activities')" :active="request()->routeIs('activities')">
                         {{ __('Activities') }}
-                    </x-nav-link>
+                    </x-primary-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-nav-link :href="url('https://esbvpanache.nl/toernooi')" :active="false">
+                    <x-primary-nav-link :href="url('https://esbvpanache.nl/toernooi')" :active="false">
                         {{ __('Panache Tournament') }}
-                    </x-nav-link>
+                    </x-primary-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                    <x-primary-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
-                    </x-nav-link>
+                    </x-primary-nav-link>
                 </div>
             </div>
 
