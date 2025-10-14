@@ -3,26 +3,32 @@
         <x-header size="xl">
             {{ __('Announcements') }}
         </x-header>
-        
-        <div>
-            <x-secondary-button class="mr-3" @click="">{{ __('View All') }}</x-secondary-button>
-            <x-secondary-button @click="$dispatch('open-modal', 'add-announcement')">{{ __('Add Announcement') }}</x-secondary-button>
+
+        <div class="flex items-center gap-3">
+            <x-secondary-button x-show="expandedView !== 'announcements'" @click="expandedView = 'announcements'">{{ __('View All') }}</x-secondary-button>
+            <x-secondary-button x-show="expandedView === 'announcements'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
+
+            <x-secondary-button
+                @click="$dispatch('open-modal', 'add-announcement')">{{ __('Add Announcement') }}</x-secondary-button>
         </div>
     </header>
 
-    @forelse ($announcements as $announcement)
-        <div class="mb-2 flex justify-between items-center">
+    @forelse ($announcements as $index => $announcement)
+        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
             <div>
                 <div class="font-semibold flex-grow">{{ $announcement->title_en }}</div>
                 <div>{{ $announcement->date->format('F j, Y') }}</div>
             </div>
-            <form method="post" action="{{ route('announcement.destroy') }}">
-                @csrf
-                @method('delete')
+            <div class="flex items-center gap-3">
+                <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
+                <form method="post" action="{{ route('announcement.destroy') }}">
+                    @csrf
+                    @method('delete')
 
-                <input type="hidden" name="announcement_id" value="{{ $announcement->id }}">
-                <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
-            </form>
+                    <input type="hidden" name="announcement_id" value="{{ $announcement->id }}">
+                    <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+                </form>
+            </div>
         </div>
     @empty
         <div class="text-gray-500">{{ __('No announcements yet.') }}</div>
@@ -50,11 +56,10 @@
                     <x-text-input name="title_nl" x-model="form.translations.nl.title" />
                     <x-input-error :messages="$errors->addAnnouncement->get('title_nl')" class="mt-2" />
                 </div>
-
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Date')" />
-                <x-text-input id="add_announcement_date" name="date" />
+                <x-text-input name="date" x-model="form.date" />
                 <x-input-error :messages="$errors->addAnnouncement->get('date')" class="mt-2" />
             </div>
         </div>
@@ -92,6 +97,7 @@
                         content: ''
                     },
                 },
+                date: '',
             },
         }
     }

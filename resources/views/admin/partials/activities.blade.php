@@ -10,25 +10,30 @@
             {{ __('Activities') }}
         </x-header>
 
-        <div>
-            <x-secondary-button class="mr-3" @click="">{{ __('View All') }}</x-secondary-button>
-            <x-secondary-button @click="$dispatch('open-modal', 'add-activity')">{{ __('Add Activity') }}</x-secondary-button>
+        <div class="flex items-center gap-3">
+            <x-secondary-button x-show="expandedView !== 'activities'" @click="expandedView = 'activities'">{{ __('View All') }}</x-secondary-button>
+            <x-secondary-button x-show="expandedView === 'activities'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
+            <x-secondary-button
+                @click="$dispatch('open-modal', 'add-activity')">{{ __('Add Activity') }}</x-secondary-button>
         </div>
     </header>
 
-    @forelse ($activities as $activity)
-        <div class="mb-2 flex justify-between items-center">
+    @forelse ($activities as $index => $activity)
+        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
             <div>
                 <div class="font-semibold flex-grow">{{ $activity->title_en }}</div>
                 <div>{{ $activity->date->format('F j, Y') }}</div>
             </div>
-            <form method="post" action="{{ route('activity.destroy') }}">
-                @csrf
-                @method('delete')
+            <div class="flex items-center gap-3">
+                <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
+                <form method="post" action="{{ route('activity.destroy') }}">
+                    @csrf
+                    @method('delete')
 
-                <input type="hidden" name="activity_id" value="{{ $activity->id }}">
-                <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
-            </form>
+                    <input type="hidden" name="activity_id" value="{{ $activity->id }}">
+                    <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+                </form>
+            </div>
         </div>
     @empty
         <div class="text-gray-500">{{ __('No activities yet.') }}</div>
@@ -44,7 +49,7 @@
             <span class="flex-grow">{{ __('Add Activity') }}</span>
             <x-language-switcher x-model="lang" />
         </x-header>
-        
+
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Title')" />
@@ -60,7 +65,7 @@
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Date')" />
-                <x-text-input id="add_activity_date" name="date" />
+                <x-text-input name="date" x-model="form.date" />
                 <x-input-error :messages="$errors->addActivity->get('date')" class="mt-2" />
             </div>
         </div>
@@ -119,15 +124,28 @@
 </x-modal>
 
 <script>
-function activityForm() {
-	return {
-		lang: 'en', // current visible language
-		form: {
-			translations: {
-				en: { title: '', location: '', cost: '', join: '', content: '' },
-				nl: { title: '', location: '', cost: '', join: '', content: '' },
-			},
-		},
-	}
-}
+    function activityForm() {
+        return {
+            lang: 'en', // current visible language
+            form: {
+                translations: {
+                    en: {
+                        title: '',
+                        location: '',
+                        cost: '',
+                        join: '',
+                        content: ''
+                    },
+                    nl: {
+                        title: '',
+                        location: '',
+                        cost: '',
+                        join: '',
+                        content: ''
+                    },
+                },
+                date: '',
+            },
+        }
+    }
 </script>

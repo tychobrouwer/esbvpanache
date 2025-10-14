@@ -17,10 +17,11 @@ class Announcement extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'title',
+        'title_en',
+        'title_nl',
         'date',
-        'content',
-        'user_id',
+        'content_en',
+        'content_nl',
     ];
 
     /**

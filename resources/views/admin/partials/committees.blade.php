@@ -4,9 +4,12 @@
             {{ __('Committees') }}
         </x-header>
 
-        <div>
-            <x-secondary-button class="mr-3" @click="">{{ __('View All') }}</x-secondary-button>
-            <x-secondary-button @click="$dispatch('open-modal', 'add-committee')">{{ __('Add Committee') }}</x-secondary-button>
+        <div class="flex items-center gap-3">
+            <x-secondary-button x-show="expandedView !== 'committees'" @click="expandedView = 'committees'">{{ __('View All') }}</x-secondary-button>
+            <x-secondary-button x-show="expandedView === 'committees'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
+
+            <x-secondary-button
+                @click="$dispatch('open-modal', 'add-committee')">{{ __('Add Committee') }}</x-secondary-button>
         </div>
     </header>
 
@@ -15,13 +18,13 @@
             <x-header size="lg">
                 {{ __('General Committees') }}
             </x-header>
-            @forelse ($general_committees as $committee)
-                <div class="mb-2 flex justify-between items-center">
+            @forelse ($general_committees as $index => $committee)
+                <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="$dispatch('open-modal', 'add-committee')">{{ __('Edit') }}</x-secondary-button>
+                        <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
@@ -39,13 +42,13 @@
             <x-header size="lg">
                 {{ __('Non-General Committees') }}
             </x-header>
-            @forelse ($non_general_committees as $committee)
-                <div class="mb-2 flex justify-between items-center">
+            @forelse ($non_general_committees as $index => $committee)
+                <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="$dispatch('open-modal', 'add-committee')">{{ __('Edit') }}</x-secondary-button>
+                        <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
@@ -82,7 +85,6 @@
                 <x-text-input name="title_nl" x-model="form.translations.nl.title" />
                 <x-input-error :messages="$errors->addCommittee->get('title_nl')" class="mt-2" />
             </div>
-
         </div>
         <div class="mb-4">
             <x-input-label :value="__('Content')" />

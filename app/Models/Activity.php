@@ -17,12 +17,17 @@ class Activity extends Model
      * @var list<string>
      */
     protected $fillable = [
-        'title',
+        'title_en',
+        'title_nl',
         'date',
-        'location',
-        'cost',
-        'join',
-        'content',
+        'location_en',
+        'location_nl',
+        'cost_en',
+        'cost_nl',
+        'join_en',
+        'join_nl',
+        'content_en',
+        'content_nl',
     ];
 
     /**
