@@ -14,7 +14,7 @@
             <x-secondary-button x-show="expandedView !== 'activities'" @click="expandedView = 'activities'">{{ __('View All') }}</x-secondary-button>
             <x-secondary-button x-show="expandedView === 'activities'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
             <x-secondary-button
-                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form')">{{ __('Add Activity') }}</x-secondary-button>
+                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form'); $dispatch('update-textarea')">{{ __('Add Activity') }}</x-secondary-button>
         </div>
     </header>
 
@@ -25,13 +25,13 @@
                 <div>{{ $activity->date->format('F j, Y') }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($activity) }}); $dispatch('open-modal', 'activity-form'); $dispatch('update-textarea');" >{{ __('Edit') }}</x-secondary-button>
+                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($activity) }}); $dispatch('open-modal', 'activity-form'); $dispatch('update-textarea')" >{{ __('Edit') }}</x-secondary-button>
                 <form method="post" action="{{ route('activity.destroy') }}">
                     @csrf
                     @method('delete')
 
                     <input type="hidden" name="activity_id" value="{{ $activity->id }}">
-                    <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+                    <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
                 </form>
             </div>
         </div>
@@ -66,7 +66,7 @@
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Date')" />
-                <x-text-input name="date" x-model="form.date" />
+                <x-text-input name="date" placeholder="25-7-2025 20:00" x-model="form.date" />
                 <x-input-error :messages="$errors->activity->get('date')" class="mt-2" />
             </div>
         </div>
@@ -119,7 +119,14 @@
         <div class="flex justify-end">
             <x-secondary-button @click="$dispatch('close-modal', 'announcement-form')"
                 class="me-3">{{ __('Cancel') }}</x-secondary-button>
-            <x-primary-button type="submit">{{ __('Add') }}</x-primary-button>
+            <x-primary-button type="submit">
+                <p x-show="form.id">
+                    {{ __('Update') }}
+                </p >
+                <p x-show="!form.id">
+                    {{ __('Add') }}
+                </p >
+            </x-primary-button>
         </div>
     </form>
 </x-modal>
@@ -137,6 +144,9 @@
                 id: null,
             },
             load(data) {
+                var d = new Date(data.date);
+                var datestring = d.getDate()  + "-" + (d.getMonth()+1) + "-" + d.getFullYear() + " " + d.getHours().toString().padStart(2, "0") + ":" + d.getMinutes().toString().padStart(2, "0");
+
                 this.form.id = data.id;
                 this.form.translations.en.title = data.title_en || '';
                 this.form.translations.en.content = data.location_en || '';
@@ -148,7 +158,7 @@
                 this.form.translations.nl.content = data.cost_nl || '';
                 this.form.translations.nl.content = data.join_nl || '';
                 this.form.translations.nl.content = data.content_nl || '';
-                this.form.date = data.date;
+                this.form.date = datestring;
             },
             reset() {
                 this.form.id = null;

@@ -8,7 +8,7 @@
             <x-secondary-button x-show="expandedView !== 'committees'" @click="expandedView = 'committees'">{{ __('View All') }}</x-secondary-button>
             <x-secondary-button x-show="expandedView === 'committees'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
 
-            <x-secondary-button @click="$dispatch('reset'); $dispatch('open-modal', 'committee-form')">{{ __('Add Committee') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('reset'); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea')">{{ __('Add Committee') }}</x-secondary-button>
         </div>
     </header>
 
@@ -23,13 +23,13 @@
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea');" >{{ __('Edit') }}</x-secondary-button>
+                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea')" >{{ __('Edit') }}</x-secondary-button>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
 
                             <input type="hidden" name="committee_id" value="{{ $committee->id }}">
-                            <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+                            <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
                         </form>
                     </div>
                 </div>
@@ -53,7 +53,7 @@
                             @method('delete')
 
                             <input type="hidden" name="committee_id" value="{{ $committee->id }}">
-                            <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+                            <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
                         </form>
                     </div>
                 </div>
@@ -106,7 +106,14 @@
         <div class="flex justify-end">
             <x-secondary-button @click="$dispatch('close-modal', 'committee-form')"
                 class="me-3">{{ __('Cancel') }}</x-secondary-button>
-            <x-primary-button type="submit">{{ __('Add') }}</x-primary-button>
+            <x-primary-button type="submit">
+                <p x-show="form.id">
+                    {{ __('Update') }}
+                </p >
+                <p x-show="!form.id">
+                    {{ __('Add') }}
+                </p >
+            </x-primary-button>
         </div>
     </form>
 </x-modal>

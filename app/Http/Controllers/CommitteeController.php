@@ -36,8 +36,6 @@ class CommitteeController extends Controller
      */
     public function update(CommitteeAddRequest $request): RedirectResponse
     {
-        dd($request->id, $request->validated());
-
         Committee::find($request->id)->update($request->validated());
 
         return redirect()->back()->with('status', value: 'committee-created');
