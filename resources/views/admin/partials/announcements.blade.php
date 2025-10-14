@@ -9,7 +9,7 @@
             <x-secondary-button x-show="expandedView === 'announcements'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
 
             <x-secondary-button
-                @click="$dispatch('open-modal', 'add-announcement')">{{ __('Add Announcement') }}</x-secondary-button>
+                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form')">{{ __('Add Announcement') }}</x-secondary-button>
         </div>
     </header>
 
@@ -20,7 +20,7 @@
                 <div>{{ $announcement->date->format('F j, Y') }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
+                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($announcement) }}); $dispatch('open-modal', 'announcement-form'); $dispatch('update-textarea');" >{{ __('Edit') }}</x-secondary-button>
                 <form method="post" action="{{ route('announcement.destroy') }}">
                     @csrf
                     @method('delete')
@@ -35,10 +35,11 @@
     @endforelse
 </section>
 
-<x-modal name="add-announcement" :show="$errors->addAnnouncement->any()" maxWidth="lg">
-    <form method="post" action="{{ route('announcement.create') }}" x-data="announcementForm()">
+<x-modal name="announcement-form" :show="$errors->announcement->any()" maxWidth="lg">
+    <form method="post" :action="form.id ? '{{ route('announcement.update') }}' : '{{ route('announcement.create') }}'" x-data="announcementForm()" @reset.window="reset()" @load-data.window="load($event.detail)">
         @csrf
-        @method('post')
+        <input type="hidden" name="_method" :value="form.id ? 'PATCH' : 'POST'">
+        <input type="hidden" name="id" x-model="form.id" x-show="form.id">
 
         <x-header size="xl" class="flex md:gap-4 flex-col md:flex-row">
             <span class="flex-grow">{{ __('Add Announcement') }}</span>
@@ -50,33 +51,33 @@
                 <x-input-label :value="__('Title')" />
                 <div x-show="lang === 'en'">
                     <x-text-input name="title_en" x-model="form.translations.en.title" />
-                    <x-input-error :messages="$errors->addAnnouncement->get('title_en')" class="mt-2" />
+                    <x-input-error :messages="$errors->announcement->get('title_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
                     <x-text-input name="title_nl" x-model="form.translations.nl.title" />
-                    <x-input-error :messages="$errors->addAnnouncement->get('title_nl')" class="mt-2" />
+                    <x-input-error :messages="$errors->announcement->get('title_nl')" class="mt-2" />
                 </div>
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Date')" />
                 <x-text-input name="date" x-model="form.date" />
-                <x-input-error :messages="$errors->addAnnouncement->get('date')" class="mt-2" />
+                <x-input-error :messages="$errors->announcement->get('date')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4">
             <x-input-label :value="__('Content')" />
             <div x-show="lang === 'en'">
                 <x-text-area name="content_en" x-model="form.translations.en.content" />
-                <x-input-error :messages="$errors->addAnnouncement->get('content_en')" class="mt-2" />
+                <x-input-error :messages="$errors->announcement->get('content_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-text-area name="content_nl" x-model="form.translations.nl.content" />
-                <x-input-error :messages="$errors->addAnnouncement->get('content_nl')" class="mt-2" />
+                <x-input-error :messages="$errors->announcement->get('content_nl')" class="mt-2" />
             </div>
         </div>
         <div class="flex justify-end">
-            <x-secondary-button @click="$dispatch('close-modal', 'add-announcement')"
-                class="me-2">{{ __('Cancel') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('close-modal', 'announcement-form')"
+                class="me-3">{{ __('Cancel') }}</x-secondary-button>
             <x-primary-button type="submit">{{ __('Add') }}</x-primary-button>
         </div>
     </form>
@@ -88,17 +89,28 @@
             lang: 'en', // current visible language
             form: {
                 translations: {
-                    en: {
-                        title: '',
-                        content: ''
-                    },
-                    nl: {
-                        title: '',
-                        content: ''
-                    },
+                    en: { title: '', content: '' },
+                    nl: { title: '', content: '' },
                 },
                 date: '',
+                id: null,
             },
+            load(data) {
+                this.form.id = data.id;
+                this.form.translations.en.title = data.title_en || '';
+                this.form.translations.en.content = data.content_en || '';
+                this.form.translations.nl.title = data.title_nl || '';
+                this.form.translations.nl.content = data.content_nl || '';
+                this.form.date = data.date;
+            },
+            reset() {
+                this.form.id = null;
+                this.form.translations.en.title = '';
+                this.form.translations.en.content = '';
+                this.form.translations.nl.title = '';
+                this.form.translations.nl.content = '';
+                this.form.date = '';
+            }
         }
     }
 </script>

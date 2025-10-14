@@ -23,6 +23,19 @@ class ActivityController extends Controller
     }
 
     /**
+     * Update the activity information.
+     */
+    public function update(ActivityAddRequest $request): RedirectResponse
+    {
+        dd($request->id, $request->validated());
+
+        Activity::find($request->id)->update($request->validated());
+        CalendarController::update();
+
+        return redirect()->back()->with('status', value: 'activity-created');
+    }
+
+    /**
      * Delete the activity.
      */
     public function destroy(Request $request): RedirectResponse

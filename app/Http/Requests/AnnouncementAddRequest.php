@@ -31,6 +31,6 @@ class AnnouncementAddRequest extends FormRequest
 
     public function withValidator($validator)
     {
-        $validator->validateWithBag('addAnnouncement');
+        $validator->validateWithBag('announcement');
     }   
 }

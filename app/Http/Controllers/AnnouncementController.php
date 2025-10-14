@@ -20,6 +20,18 @@ class AnnouncementController extends Controller
     }
 
     /**
+     * Update the announcement information.
+     */
+    public function update(AnnouncementAddRequest $request): RedirectResponse
+    {
+        dd($request->id, $request->validated());
+        
+        Announcement::find($request->id)->update($request->validated());
+
+        return redirect()->back()->with('status', value: 'announcement-created');
+    }
+
+    /**
      * Delete the announcement.
      */
     public function destroy(Request $request): RedirectResponse

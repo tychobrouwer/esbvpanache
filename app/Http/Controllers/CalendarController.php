@@ -19,7 +19,16 @@ class CalendarController extends Controller
 	}
 
     /**
-     * Show the committee list.
+     * Show the calendar.
+     */
+    public function index() {
+        $icalData = Storage::disk('local')->get('panache.ics');
+
+        return response($icalData, 200)->header('Content-Type', 'text/calendar');
+    }
+
+    /**
+     * Update the committee list.
      */
     public function update()
     {
@@ -74,11 +83,5 @@ class CalendarController extends Controller
         $icalData .= "END:VCALENDAR\r\n";
 
         Storage::disk('local')->put('panache.ics', $icalData);
-    }
-
-    public function index() {
-        $icalData = Storage::disk('local')->get('panache.ics');
-
-        return response($icalData, 200)->header('Content-Type', 'text/calendar');
     }
 }

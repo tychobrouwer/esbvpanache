@@ -43,16 +43,19 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/announcement', [AnnouncementController::class, 'create'])->name('announcement.create');
+    Route::patch('/announcement', [AnnouncementController::class, 'update'])->name('announcement.update');
     Route::delete('/announcement', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 });
 
 Route::middleware('auth')->group(function () {
     Route::post('/activity', [ActivityController::class, 'create'])->name('activity.create');
+    Route::patch('/activity', [ActivityController::class, 'update'])->name('activity.update');
     Route::delete('/activity', [ActivityController::class, 'destroy'])->name('activity.destroy');
 });
 
 Route::middleware('auth')->group(function () {
     Route::post('/committee', [CommitteeController::class, 'create'])->name('committee.create');
+    Route::patch('/committee', [CommitteeController::class, 'update'])->name('committee.update');
     Route::delete('/committee', [CommitteeController::class, 'destroy'])->name('committee.destroy');
 });
 

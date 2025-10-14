@@ -31,6 +31,6 @@ class CommitteeAddRequest extends FormRequest
 
     public function withValidator($validator)
     {
-        $validator->validateWithBag('addCommittee');
+        $validator->validateWithBag('committee');
     }   
 }

@@ -8,8 +8,7 @@
             <x-secondary-button x-show="expandedView !== 'committees'" @click="expandedView = 'committees'">{{ __('View All') }}</x-secondary-button>
             <x-secondary-button x-show="expandedView === 'committees'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
 
-            <x-secondary-button
-                @click="$dispatch('open-modal', 'add-committee')">{{ __('Add Committee') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('reset'); $dispatch('open-modal', 'committee-form')">{{ __('Add Committee') }}</x-secondary-button>
         </div>
     </header>
 
@@ -24,7 +23,7 @@
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
+                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea');" >{{ __('Edit') }}</x-secondary-button>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
@@ -48,7 +47,7 @@
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
+                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea');" >{{ __('Edit') }}</x-secondary-button>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
@@ -65,10 +64,12 @@
     </div>
 </section>
 
-<x-modal name="add-committee" :show="$errors->addCommittee->any()" maxWidth="lg">
-    <form method="post" action="{{ route('committee.create') }}" x-data="committeeForm()">
+<x-modal name="committee-form" :show="$errors->committee->any()" maxWidth="lg"
+    x-on:load.window="">
+    <form method="post" :action="form.id ? '{{ route('committee.update') }}' : '{{ route('committee.create') }}'" x-data="committeeForm()" @reset.window="reset()" @load-data.window="load($event.detail)">
         @csrf
-        @method('post')
+        <input type="hidden" name="_method" :value="form.id ? 'PATCH' : 'POST'">
+        <input type="hidden" name="id" x-model="form.id" x-show="form.id">
 
         <x-header size="xl" class="flex md:gap-4 flex-col md:flex-row">
             <span class="flex-grow">{{ __('Add Committee') }}</span>
@@ -79,32 +80,32 @@
             <x-input-label :value="__('Title')" />
             <div x-show="lang === 'en'">
                 <x-text-input name="title_en" x-model="form.translations.en.title" />
-                <x-input-error :messages="$errors->addCommittee->get('title_en')" class="mt-2" />
+                <x-input-error :messages="$errors->committee->get('title_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-text-input name="title_nl" x-model="form.translations.nl.title" />
-                <x-input-error :messages="$errors->addCommittee->get('title_nl')" class="mt-2" />
+                <x-input-error :messages="$errors->committee->get('title_nl')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4">
             <x-input-label :value="__('Content')" />
             <div x-show="lang === 'en'">
                 <x-text-area name="description_en" x-model="form.translations.en.description" />
-                <x-input-error :messages="$errors->addCommittee->get('description_en')" class="mt-2" />
+                <x-input-error :messages="$errors->committee->get('description_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-text-area name="description_nl" x-model="form.translations.nl.description" />
-                <x-input-error :messages="$errors->addCommittee->get('description_nl')" class="mt-2" />
+                <x-input-error :messages="$errors->committee->get('description_nl')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4 flex items-center gap-2">
             <x-input-label :value="__('Is General Committee')" />
-            <x-checkbox-input name="is_general" x-model="form.is_general" />
-            <x-input-error :messages="$errors->addCommittee->get('is_general')" class="mt-2" />
+            <x-checkbox-input name="is_general" model="form.is_general" />
+            <x-input-error :messages="$errors->committee->get('is_general')" class="mt-2" />
         </div>
         <div class="flex justify-end">
-            <x-secondary-button @click="$dispatch('close-modal', 'add-committee')"
-                class="me-2">{{ __('Cancel') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('close-modal', 'committee-form')"
+                class="me-3">{{ __('Cancel') }}</x-secondary-button>
             <x-primary-button type="submit">{{ __('Add') }}</x-primary-button>
         </div>
     </form>
@@ -116,17 +117,30 @@
             lang: 'en', // current visible language
             form: {
                 translations: {
-                    en: {
-                        title: '',
-                        description: '',
-                    },
-                    nl: {
-                        title: '',
-                        description: '',
-                    },
+                    en: { title: '', description: '' },
+                    nl: { title: '', description: '' },
                 },
                 is_general: false,
+                id: null,
             },
+            load(data) {
+                this.form.id = data.id;
+                this.form.translations.en.title = data.title_en || '';
+                this.form.translations.en.description = data.description_en || '';
+                this.form.translations.nl.title = data.title_nl || '';
+                this.form.translations.nl.description = data.description_nl || '';
+                this.form.is_general = data.is_general;
+            },
+            reset() {
+                Object.assign(this.form, {
+                    translations: {
+                        en: { title: '', description: '' },
+                        nl: { title: '', description: '' },
+                    },
+                    is_general: false,
+                    id: null,
+                });
+            }
         }
     }
 </script>

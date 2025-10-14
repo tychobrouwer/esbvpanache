@@ -14,7 +14,7 @@
             <x-secondary-button x-show="expandedView !== 'activities'" @click="expandedView = 'activities'">{{ __('View All') }}</x-secondary-button>
             <x-secondary-button x-show="expandedView === 'activities'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
             <x-secondary-button
-                @click="$dispatch('open-modal', 'add-activity')">{{ __('Add Activity') }}</x-secondary-button>
+                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form')">{{ __('Add Activity') }}</x-secondary-button>
         </div>
     </header>
 
@@ -25,7 +25,7 @@
                 <div>{{ $activity->date->format('F j, Y') }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-secondary-button @click="">{{ __('Edit') }}</x-secondary-button>
+                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($activity) }}); $dispatch('open-modal', 'activity-form'); $dispatch('update-textarea');" >{{ __('Edit') }}</x-secondary-button>
                 <form method="post" action="{{ route('activity.destroy') }}">
                     @csrf
                     @method('delete')
@@ -40,10 +40,11 @@
     @endforelse
 </section>
 
-<x-modal name="add-activity" :show="$errors->addActivity->any()" maxWidth="lg">
-    <form method="post" action="{{ route('activity.create') }}" x-data="activityForm()">
+<x-modal name="activity-form" :show="$errors->activity->any()" maxWidth="lg">
+    <form method="post" :action="form.id ? '{{ route('activity.update') }}' : '{{ route('activity.create') }}'" x-data="activityForm()" @reset.window="reset()" @load-data.window="load($event.detail)">
         @csrf
-        @method('post')
+        <input type="hidden" name="_method" :value="form.id ? 'PATCH' : 'POST'">
+        <input type="hidden" name="id" x-model="form.id" x-show="form.id">
 
         <x-header size="xl" class="flex md:gap-4 flex-col md:flex-row">
             <span class="flex-grow">{{ __('Add Activity') }}</span>
@@ -55,18 +56,18 @@
                 <x-input-label :value="__('Title')" />
                 <div x-show="lang === 'en'">
                     <x-text-input name="title_en" x-model="form.translations.en.title" />
-                    <x-input-error :messages="$errors->addActivity->get('title_en')" class="mt-2" />
+                    <x-input-error :messages="$errors->activity->get('title_en')" class="mt-2" />
 
                 </div>
                 <div x-show="lang === 'nl'">
                     <x-text-input name="title_nl" x-model="form.translations.nl.title" />
-                    <x-input-error :messages="$errors->addActivity->get('title_nl')" class="mt-2" />
+                    <x-input-error :messages="$errors->activity->get('title_nl')" class="mt-2" />
                 </div>
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Date')" />
                 <x-text-input name="date" x-model="form.date" />
-                <x-input-error :messages="$errors->addActivity->get('date')" class="mt-2" />
+                <x-input-error :messages="$errors->activity->get('date')" class="mt-2" />
             </div>
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
@@ -74,22 +75,22 @@
                 <x-input-label :value="__('Location')" />
                 <div x-show="lang === 'en'">
                     <x-text-input name="location_en" x-model="form.translations.en.location" />
-                    <x-input-error :messages="$errors->addActivity->get('location_en')" class="mt-2" />
+                    <x-input-error :messages="$errors->activity->get('location_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
                     <x-text-input name="location_nl" x-model="form.translations.nl.location" />
-                    <x-input-error :messages="$errors->addActivity->get('location_nl')" class="mt-2" />
+                    <x-input-error :messages="$errors->activity->get('location_nl')" class="mt-2" />
                 </div>
             </div>
             <div class="mb-4 flex-grow">
                 <x-input-label :value="__('Cost')" />
                 <div x-show="lang === 'en'">
                     <x-text-input name="cost_en" x-model="form.translations.en.cost" />
-                    <x-input-error :messages="$errors->addActivity->get('cost_en')" class="mt-2" />
+                    <x-input-error :messages="$errors->activity->get('cost_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
                     <x-text-input name="cost_nl" x-model="form.translations.nl.cost" />
-                    <x-input-error :messages="$errors->addActivity->get('cost_nl')" class="mt-2" />
+                    <x-input-error :messages="$errors->activity->get('cost_nl')" class="mt-2" />
                 </div>
             </div>
         </div>
@@ -97,27 +98,27 @@
             <x-input-label :value="__('How to Join')" />
             <div x-show="lang === 'en'">
                 <x-text-input name="join_en" x-model="form.translations.en.join" />
-                <x-input-error :messages="$errors->addActivity->get('join_en')" class="mt-2" />
+                <x-input-error :messages="$errors->activity->get('join_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-text-input name="join_nl" x-model="form.translations.nl.join" />
-                <x-input-error :messages="$errors->addActivity->get('join_nl')" class="mt-2" />
+                <x-input-error :messages="$errors->activity->get('join_nl')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4">
             <x-input-label :value="__('Content')" />
             <div x-show="lang === 'en'">
                 <x-text-area name="content_en" x-model="form.translations.en.content" />
-                <x-input-error :messages="$errors->addActivity->get('content_en')" class="mt-2" />
+                <x-input-error :messages="$errors->activity->get('content_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-text-area name="content_nl" x-model="form.translations.nl.content" />
-                <x-input-error :messages="$errors->addActivity->get('content_nl')" class="mt-2" />
+                <x-input-error :messages="$errors->activity->get('content_nl')" class="mt-2" />
             </div>
         </div>
         <div class="flex justify-end">
-            <x-secondary-button @click="$dispatch('close-modal', 'add-activity')"
-                class="me-2">{{ __('Cancel') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('close-modal', 'announcement-form')"
+                class="me-3">{{ __('Cancel') }}</x-secondary-button>
             <x-primary-button type="submit">{{ __('Add') }}</x-primary-button>
         </div>
     </form>
@@ -129,23 +130,40 @@
             lang: 'en', // current visible language
             form: {
                 translations: {
-                    en: {
-                        title: '',
-                        location: '',
-                        cost: '',
-                        join: '',
-                        content: ''
-                    },
-                    nl: {
-                        title: '',
-                        location: '',
-                        cost: '',
-                        join: '',
-                        content: ''
-                    },
+                    en: { title: '', location: '', cost: '', join: '', content: '' },
+                    nl: { title: '', location: '', cost: '', join: '', content: '' },
                 },
                 date: '',
+                id: null,
             },
+            load(data) {
+                this.form.id = data.id;
+                this.form.translations.en.title = data.title_en || '';
+                this.form.translations.en.content = data.location_en || '';
+                this.form.translations.en.content = data.cost_en || '';
+                this.form.translations.en.content = data.join_en || '';
+                this.form.translations.en.content = data.content_en || '';
+                this.form.translations.nl.title = data.title_nl || '';
+                this.form.translations.nl.content = data.location_nl || '';
+                this.form.translations.nl.content = data.cost_nl || '';
+                this.form.translations.nl.content = data.join_nl || '';
+                this.form.translations.nl.content = data.content_nl || '';
+                this.form.date = data.date;
+            },
+            reset() {
+                this.form.id = null;
+                this.form.translations.en.title = '';
+                this.form.translations.en.content = '';
+                this.form.translations.en.content = '';
+                this.form.translations.en.content = '';
+                this.form.translations.en.content = '';
+                this.form.translations.nl.title = '';
+                this.form.translations.nl.content = '';
+                this.form.translations.nl.content = '';
+                this.form.translations.nl.content = '';
+                this.form.translations.nl.content = '';
+                this.form.date = '';
+            }
         }
     }
 </script>
