@@ -1,3 +1,5 @@
+@props(['max_width' => 'max-w-5xl'])
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scroll-behavior: smooth; overflow-y: scroll;">
     <head>
@@ -27,7 +29,7 @@
             <!-- Page Content -->
             <main class="flex-grow">
                 <div class="py-12">
-                    <div class="max-w-5xl mx-auto sm:px-6 lg:px-8">
+                    <div class="{{ $max_width }} mx-auto sm:px-6 lg:px-8">
                         {{ $slot }}
                     </div>
                 </div>

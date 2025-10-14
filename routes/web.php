@@ -9,6 +9,7 @@ use App\Http\Controllers\ActivityController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/board', function () { return view('board'); })->name('board');
@@ -24,7 +25,13 @@ Route::get('/pictures', function () { return view('pictures'); })->name('picture
 
 Route::get('/panache.ics', [CalendarController::class, 'index']);
 
-Route::get('/locale-switch', [])->name('locale-switch');
+Route::get('/locale-switch', function() {    
+    $newLocale = App::isLocale('nl') ? 'en' : 'nl';
+    App::setLocale($newLocale);
+    Session::put('locale', $newLocale);
+
+    return back();
+})->name('locale-switch');
 
 Route::get('/admin', [AdminController::class, 'index'])->middleware(['auth'])->name('admin');
 

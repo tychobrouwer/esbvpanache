@@ -31,33 +31,33 @@
             <x-header size="2xl" class="col-span-full">
                 {{ __('Information') }}
             </x-header>
-                <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
-                    <div>
-                        <div class="font-semibold flex-grow">{{ __('Training & Playing') }}</div>
-                        <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                            {!! __('playing_message') !!}
-                        </div>
+            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
+                <div>
+                    <div class="font-semibold flex-grow">{{ __('Training & Playing') }}</div>
+                    <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
+                        {!! __('playing_message') !!}
                     </div>
-                    <x-secondary-nav-link :href="route('training-and-playing')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
                 </div>
-                <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
-                    <div>
-                        <div class="font-semibold flex-grow">{{ __('Competition') }}</div>
-                        <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                            {!! __('competition_message') !!}
-                        </div>
+                <x-secondary-nav-link :href="route('training-and-playing')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
+            </div>
+            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
+                <div>
+                    <div class="font-semibold flex-grow">{{ __('Membership') }}</div>
+                    <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
+                        {!! __('membership_form_message') !!}
                     </div>
-                    <x-secondary-nav-link :href="route('competition')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
                 </div>
-                <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
-                    <div>
-                        <div class="font-semibold flex-grow">{{ __('Membership') }}</div>
-                        <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                            {!! __('membership_form_message') !!}
-                        </div>
+                <x-secondary-nav-link :href="route('membership')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
+            </div>
+            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
+                <div>
+                    <div class="font-semibold flex-grow">{{ __('Competition') }}</div>
+                    <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
+                        {!! __('competition_message') !!}
                     </div>
-                    <x-secondary-nav-link :href="route('membership')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
                 </div>
+                <x-secondary-nav-link :href="route('competition')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
+            </div>
         </div>
     </div>
 </x-app-layout>

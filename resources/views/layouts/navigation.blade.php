@@ -2,7 +2,7 @@
     <!-- Primary Navigation Menu -->
     <!-- <div class="w-full h-1 bg-panache"></div> -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-around h-10">
+        <div class="flex justify-between h-10">
             <div class="flex items-center">
                 <a href="{{ route('index') }}">
                     <x-panache-logo class="h-8 w-14 fill-panache" />
@@ -99,7 +99,13 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-primary-nav-link :href="route('locale-switch')" :active="false">
-                        {{ App::isLocale('en') ? 'NL' : 'EN' }}
+                        @if (App::isLocale('en'))
+                            {{-- NL&#127475;&#127473; --}}
+                            EN &#10132; NL
+                        @else
+                            {{-- EN&#127466;&#127475; --}}
+                            NL &#10132; EN
+                        @endif
                     </x-primary-nav-link>
                 </div>
             </div>

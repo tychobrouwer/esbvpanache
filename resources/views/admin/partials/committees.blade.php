@@ -4,8 +4,10 @@
             {{ __('Committees') }}
         </x-header>
 
-        <x-secondary-button
-            @click="$dispatch('open-modal', 'add-committee')">{{ __('Add Committee') }}</x-secondary-button>
+        <div>
+            <x-secondary-button class="mr-3" @click="">{{ __('View All') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('open-modal', 'add-committee')">{{ __('Add Committee') }}</x-secondary-button>
+        </div>
     </header>
 
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -18,13 +20,16 @@
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
-                    <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
-                        @csrf
-                        @method('delete')
+                    <div class="flex items-center gap-3">
+                        <x-secondary-button @click="$dispatch('open-modal', 'add-committee')">{{ __('Edit') }}</x-secondary-button>
+                        <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
+                            @csrf
+                            @method('delete')
 
-                        <input type="hidden" name="committee_id" value="{{ $committee->id }}">
-                        <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
-                    </form>
+                            <input type="hidden" name="committee_id" value="{{ $committee->id }}">
+                            <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+                        </form>
+                    </div>
                 </div>
             @empty
                 <div class="text-gray-500">{{ __('No committees yet.') }}</div>
@@ -39,13 +44,16 @@
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
-                    <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
-                        @csrf
-                        @method('delete')
+                    <div class="flex items-center gap-3">
+                        <x-secondary-button @click="$dispatch('open-modal', 'add-committee')">{{ __('Edit') }}</x-secondary-button>
+                        <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
+                            @csrf
+                            @method('delete')
 
-                        <input type="hidden" name="committee_id" value="{{ $committee->id }}">
-                        <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
-                    </form>
+                            <input type="hidden" name="committee_id" value="{{ $committee->id }}">
+                            <x-secondary-button type="submit">{{ __('Delete') }}</x-secondary-button>
+                        </form>
+                    </div>
                 </div>
             @empty
                 <div class="text-gray-500">{{ __('No committees yet.') }}</div>

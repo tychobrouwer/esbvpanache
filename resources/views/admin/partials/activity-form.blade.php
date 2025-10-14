@@ -10,8 +10,10 @@
             {{ __('Activities') }}
         </x-header>
 
-        <x-secondary-button
-            @click="$dispatch('open-modal', 'add-activity')">{{ __('Add Activity') }}</x-secondary-button>
+        <div>
+            <x-secondary-button class="mr-3" @click="">{{ __('View All') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('open-modal', 'add-activity')">{{ __('Add Activity') }}</x-secondary-button>
+        </div>
     </header>
 
     @forelse ($activities as $activity)
