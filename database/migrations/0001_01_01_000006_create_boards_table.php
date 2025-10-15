@@ -13,8 +13,12 @@ return new class extends Migration
     {
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
-            $table->string('title_en');
-            $table->string('title_nl');
+            $table->integer('year')->unique();
+            $table->string('chairperson');
+            $table->string('vice_chairperson');
+            $table->string('secretary');
+            $table->string('treasurer');
+            $table->string('slogan');
             $table->text('message_en')->nullable();
             $table->text('message_nl')->nullable();
             $table->timestamps();

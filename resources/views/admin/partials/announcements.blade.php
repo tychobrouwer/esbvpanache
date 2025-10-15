@@ -1,4 +1,4 @@
-<section>
+<section x-cloak>
     <header x-data class="flex justify-between items-center">
         <x-header size="xl">
             {{ __('Announcements') }}
@@ -48,29 +48,31 @@
 
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Title')" />
                 <div x-show="lang === 'en'">
+                    <x-input-label for="title_en" :value="__('Title (EN)')" />
                     <x-text-input name="title_en" x-model="form.translations.en.title" />
                     <x-input-error :messages="$errors->announcement->get('title_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
+                    <x-input-label for="title_nl" :value="__('Title (NL)')" />
                     <x-text-input name="title_nl" x-model="form.translations.nl.title" />
                     <x-input-error :messages="$errors->announcement->get('title_nl')" class="mt-2" />
                 </div>
             </div>
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Date')" />
+                <x-input-label for="date" :value="__('Date')" />
                 <x-text-input name="date" placeholder="25-7-2025" x-model="form.date" />
                 <x-input-error :messages="$errors->announcement->get('date')" />
             </div>
         </div>
         <div class="mb-4">
-            <x-input-label :value="__('Content')" />
             <div x-show="lang === 'en'">
+                <x-input-label for="content_en" :value="__('Content (EN)')" />
                 <x-text-area name="content_en" x-model="form.translations.en.content" />
                 <x-input-error :messages="$errors->announcement->get('content_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
+                <x-input-label for="content_nl" :value="__('Content (NL)')" />
                 <x-text-area name="content_nl" x-model="form.translations.nl.content" />
                 <x-input-error :messages="$errors->announcement->get('content_nl')" class="mt-2" />
             </div>
@@ -93,7 +95,7 @@
 <script>
     function announcementForm() {
         return {
-            lang: 'en', // current visible language
+            lang: 'en',
             form: {
                 translations: {
                     en: { title: '', content: '' },

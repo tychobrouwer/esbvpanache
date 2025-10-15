@@ -1,10 +1,4 @@
-@php
-    if ($errors->any()) {
-        // dd($errors->all());
-    }
-@endphp
-
-<section>
+<section x-cloak>
     <header x-data class="flex justify-between items-center">
         <x-header size="xl">
             {{ __('Activities') }}
@@ -52,71 +46,76 @@
         </x-header>
 
         <div class="mb-4">
-            <x-input-label :value="__('Title')" />
             <div x-show="lang === 'en'">
+                <x-input-label for="title_en" :value="__('Title (EN)')" />
                 <x-text-input name="title_en" x-model="form.translations.en.title" />
                 <x-input-error :messages="$errors->activity->get('title_en')" class="mt-2" />
 
             </div>
             <div x-show="lang === 'nl'">
+                <x-input-label for="title_nl" :value="__('Title (NL)')" />
                 <x-text-input name="title_nl" x-model="form.translations.nl.title" />
                 <x-input-error :messages="$errors->activity->get('title_nl')" class="mt-2" />
             </div>
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Date & Time')" />
+                <x-input-label for="date" :value="__('Date & Time')" />
                 <x-text-input name="date" placeholder="25-7-2025 20:00 or 25-7-2025" x-model="form.date" />
                 <x-input-error :messages="$errors->activity->get('date')" class="mt-2" />
             </div>
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Duration (hours, optional)')" />
+                <x-input-label for="duration" :value="__('Duration (hours, optional)')" />
                 <x-text-input name="duration" placeholder="1.5" x-model="form.duration" />
                 <x-input-error :messages="$errors->activity->get('duration')" class="mt-2" />
             </div>
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Location')" />
                 <div x-show="lang === 'en'">
+                    <x-input-label for="location_en" :value="__('Location (EN)')" />
                     <x-text-input name="location_en" x-model="form.translations.en.location" />
                     <x-input-error :messages="$errors->activity->get('location_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
+                    <x-input-label for="location_nl" :value="__('Location (NL)')" />
                     <x-text-input name="location_nl" x-model="form.translations.nl.location" />
                     <x-input-error :messages="$errors->activity->get('location_nl')" class="mt-2" />
                 </div>
             </div>
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Cost')" />
                 <div x-show="lang === 'en'">
+                    <x-input-label for="cost_en" :value="__('Cost (EN)')" />
                     <x-text-input name="cost_en" x-model="form.translations.en.cost" />
                     <x-input-error :messages="$errors->activity->get('cost_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
+                    <x-input-label for="cost_nl" :value="__('Cost (NL)')" />
                     <x-text-input name="cost_nl" x-model="form.translations.nl.cost" />
                     <x-input-error :messages="$errors->activity->get('cost_nl')" class="mt-2" />
                 </div>
             </div>
         </div>
         <div class="mb-4">
-            <x-input-label :value="__('How to Join')" />
             <div x-show="lang === 'en'">
+            <x-input-label for="join_en" :value="__('How to Join (EN)')" />
                 <x-text-input name="join_en" x-model="form.translations.en.join" />
                 <x-input-error :messages="$errors->activity->get('join_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
+            <x-input-label for="join_nl" :value="__('How to Join (NL)')" />
                 <x-text-input name="join_nl" x-model="form.translations.nl.join" />
                 <x-input-error :messages="$errors->activity->get('join_nl')" class="mt-2" />
             </div>
         </div>
         <div class="mb-4">
-            <x-input-label :value="__('Content')" />
             <div x-show="lang === 'en'">
+                <x-input-label for="content_en" :value="__('Content (EN)')" />
                 <x-text-area name="content_en" x-model="form.translations.en.content" />
                 <x-input-error :messages="$errors->activity->get('content_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
+                <x-input-label for="content_nl" :value="__('Content (NL)')" />
                 <x-text-area name="content_nl" x-model="form.translations.nl.content" />
                 <x-input-error :messages="$errors->activity->get('content_nl')" class="mt-2" />
             </div>
@@ -139,7 +138,7 @@
 <script>
     function activityForm() {
         return {
-            lang: 'en', // current visible language
+            lang: 'en',
             form: {
                 translations: {
                     en: { title: '', location: '', cost: '', join: '', content: '' },

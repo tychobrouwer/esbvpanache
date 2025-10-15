@@ -8,10 +8,10 @@
             {{ __('Board')}}
         </x-header>
         <p>
-            {{ __('Chairman') }} - Ata Chaga<br>
-            {{ __('Vice-chairman') }} - Luc Broeders<br>
-            {{ __('Secretary') }} - Tycho Brouwer<br>
-            {{ __('Treasurer') }} - Yoni van Delft
+            <strong>{{ __('Chairperson') }}:</strong> {{ $board->chairperson }}<br>
+            <strong>{{ __('Vice-chairperson') }}:</strong> {{ $board->vice_chairperson }}<br>
+            <strong>{{ __('Secretary') }}:</strong> {{ $board->secretary }}<br>
+            <strong>{{ __('Treasurer') }}:</strong> {{ $board->treasurer }}<br>
         </p>
         <x-header size="2xl">
             {{ __('Confidential Contact Person') }}

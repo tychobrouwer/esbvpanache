@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
         <div class="md:flex items-center">
-            <p class="pr-6">{!! __('welcome') !!}</p>
-            <div class="w-1/2"><x-panache-logo-full class="fill-panache" /></div>
+            <p class="pr-6 basis-3/5">{!! __('welcome') !!}</p>
+            <x-panache-logo-full class="fill-panache text-panache basis-2/5" />
         </div>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
@@ -11,7 +11,7 @@
         </x-header>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($announcements as $announcement)
-                <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
+                <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
                     <div>
                         <div class="font-semibold flex-grow">{{ $announcement->title_en }}</div>
                         <div>{{ $announcement->date->format('F j,  Y') }}</div>
@@ -31,7 +31,7 @@
             <x-header size="2xl" class="col-span-full">
                 {{ __('Information') }}
             </x-header>
-            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
+            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
                 <div>
                     <div class="font-semibold flex-grow">{{ __('Training & Playing') }}</div>
                     <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
@@ -40,7 +40,7 @@
                 </div>
                 <x-secondary-nav-link :href="route('training-and-playing')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
             </div>
-            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
+            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
                 <div>
                     <div class="font-semibold flex-grow">{{ __('Membership') }}</div>
                     <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
@@ -49,7 +49,7 @@
                 </div>
                 <x-secondary-nav-link :href="route('membership')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
             </div>
-            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
+            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
                 <div>
                     <div class="font-semibold flex-grow">{{ __('Competition') }}</div>
                     <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
