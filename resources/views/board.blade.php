@@ -27,7 +27,7 @@ function ordinal($number) {
         </x-header>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @foreach ($boards as $index => $board)
-                <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between" x-show="{{ $index }} < {{ $nr_of_boards }}">
+                <div class="previous_board min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between" x-show="{{ $index }} < {{ $nr_of_boards }}">
                     <div>
                         <div class="font-semibold flex-grow">{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ ordinal($board->year) }}</div>
                         <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
@@ -40,6 +40,13 @@ function ordinal($number) {
                     </div>
                 </div>
             @endforeach
+            @if (count($boards) > $nr_of_boards)
+                <div class="col-span-full text-center">
+                    <button class="text-panache font-semibold" @click="document.querySelectorAll('.previous_board').forEach(el => el.style.display = 'flex'); $el.style.display = 'none';">
+                        {{ __('Show all boards') }}
+                    </button>
+                </div>
+            @endif
         </div>
     </div>
 </x-app-layout>
