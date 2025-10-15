@@ -17,7 +17,7 @@ class ActivityController extends Controller
     public function create(ActivityAddRequest $request): RedirectResponse
     {        
         Activity::create(attributes: $request->validated());
-        CalendarController::update();
+        (new CalendarController())->update();
 
         return redirect()->back()->with('status', value: 'activity-created');
     }
@@ -27,12 +27,10 @@ class ActivityController extends Controller
      */
     public function update(ActivityAddRequest $request): RedirectResponse
     {
-        dd($request->id, $request->validated());
-
         Activity::find($request->id)->update($request->validated());
-        CalendarController::update();
+        (new CalendarController())->update();
 
-        return redirect()->back()->with('status', value: 'activity-created');
+        return redirect()->back()->with('status', value: 'activity-updated');
     }
 
     /**
@@ -46,6 +44,7 @@ class ActivityController extends Controller
 
         $activity = Activity::find($request->activity_id);
         $activity->delete();
+        (new CalendarController())->update();
 
         return redirect()->back()->with('success', 'activity-destroyed');
     }

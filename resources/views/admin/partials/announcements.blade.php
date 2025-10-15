@@ -114,12 +114,14 @@
                 this.form.date = datestring;
             },
             reset() {
-                this.form.id = null;
-                this.form.translations.en.title = '';
-                this.form.translations.en.content = '';
-                this.form.translations.nl.title = '';
-                this.form.translations.nl.content = '';
-                this.form.date = '';
+                Object.assign(this.form, {
+                    translations: {
+                        en: { title: '', content: '' },
+                        nl: { title: '', content: '' },
+                    },
+                    date: '',
+                    id: null,
+                });
             }
         }
     }

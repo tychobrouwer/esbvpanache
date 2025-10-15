@@ -51,23 +51,28 @@
             <x-language-switcher x-model="lang" />
         </x-header>
 
+        <div class="mb-4">
+            <x-input-label :value="__('Title')" />
+            <div x-show="lang === 'en'">
+                <x-text-input name="title_en" x-model="form.translations.en.title" />
+                <x-input-error :messages="$errors->activity->get('title_en')" class="mt-2" />
+
+            </div>
+            <div x-show="lang === 'nl'">
+                <x-text-input name="title_nl" x-model="form.translations.nl.title" />
+                <x-input-error :messages="$errors->activity->get('title_nl')" class="mt-2" />
+            </div>
+        </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Title')" />
-                <div x-show="lang === 'en'">
-                    <x-text-input name="title_en" x-model="form.translations.en.title" />
-                    <x-input-error :messages="$errors->activity->get('title_en')" class="mt-2" />
-
-                </div>
-                <div x-show="lang === 'nl'">
-                    <x-text-input name="title_nl" x-model="form.translations.nl.title" />
-                    <x-input-error :messages="$errors->activity->get('title_nl')" class="mt-2" />
-                </div>
+                <x-input-label :value="__('Date & Time')" />
+                <x-text-input name="date" placeholder="25-7-2025 20:00 or 25-7-2025" x-model="form.date" />
+                <x-input-error :messages="$errors->activity->get('date')" class="mt-2" />
             </div>
             <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Date')" />
-                <x-text-input name="date" placeholder="25-7-2025 20:00" x-model="form.date" />
-                <x-input-error :messages="$errors->activity->get('date')" class="mt-2" />
+                <x-input-label :value="__('Duration (hours, optional)')" />
+                <x-text-input name="duration" placeholder="1.5" x-model="form.duration" />
+                <x-input-error :messages="$errors->activity->get('duration')" class="mt-2" />
             </div>
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
@@ -141,6 +146,7 @@
                     nl: { title: '', location: '', cost: '', join: '', content: '' },
                 },
                 date: '',
+                duration: '',
                 id: null,
             },
             load(data) {
@@ -159,20 +165,18 @@
                 this.form.translations.nl.content = data.join_nl || '';
                 this.form.translations.nl.content = data.content_nl || '';
                 this.form.date = datestring;
+                this.form.duration = data.duration || '';
             },
             reset() {
-                this.form.id = null;
-                this.form.translations.en.title = '';
-                this.form.translations.en.content = '';
-                this.form.translations.en.content = '';
-                this.form.translations.en.content = '';
-                this.form.translations.en.content = '';
-                this.form.translations.nl.title = '';
-                this.form.translations.nl.content = '';
-                this.form.translations.nl.content = '';
-                this.form.translations.nl.content = '';
-                this.form.translations.nl.content = '';
-                this.form.date = '';
+                Object.assign(this.form, {
+                    translations: {
+                        en: { title: '', location: '', cost: '', join: '', content: '' },
+                        nl: { title: '', location: '', cost: '', join: '', content: '' },
+                    },
+                    date: '',
+                    duration: '',
+                    id: null,
+                });
             }
         }
     }

@@ -20,6 +20,7 @@ class Activity extends Model
         'title_en',
         'title_nl',
         'date',
+        'duration',
         'location_en',
         'location_nl',
         'cost_en',
@@ -39,6 +40,7 @@ class Activity extends Model
     {
         return [
       		'date' => 'date',
+            'duration' => 'float',
         ];
     }
 }

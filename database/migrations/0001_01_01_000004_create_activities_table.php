@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('title_en');
             $table->string('title_nl');
             $table->date('date');
+            $table->float('duration')->nullable();
             $table->string('location_en');
             $table->string('location_nl');
             $table->string('cost_en');

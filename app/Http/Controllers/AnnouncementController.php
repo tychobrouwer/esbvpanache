@@ -28,7 +28,7 @@ class AnnouncementController extends Controller
         
         Announcement::find($request->id)->update($request->validated());
 
-        return redirect()->back()->with('status', value: 'announcement-created');
+        return redirect()->back()->with('status', value: 'announcement-updated');
     }
 
     /**

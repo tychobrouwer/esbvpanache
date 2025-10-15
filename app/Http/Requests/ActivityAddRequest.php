@@ -17,6 +17,7 @@ class ActivityAddRequest extends FormRequest
             'title_en' => 'required|string|max:255',
             'title_nl' => 'required|string|max:255',
             'date' => 'required|date',
+            'duration' => 'nullable|digits_between:0,1,numeric|min:0',
             'location_en' => 'required|string|max:255',
             'location_nl' => 'required|string|max:255',
             'cost_en' => 'required|string|max:255',

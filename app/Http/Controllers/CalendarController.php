@@ -41,44 +41,56 @@ class CalendarController extends Controller
 
         $activities = Activity::get();
         foreach ($activities as $activity) {
-            $icalData .= "BEGIN:VENENT\r\n";
-            $icalData .= "UID:" . preg_replace('/\s+/', '_', strlower($activities->title)) . "-" . $activities->date->format('Ymd\THis\Z') . "@esbvpanache.nl\r\n";
-            $icalData .= "DTSTAMP:" . $now->format('Ymd\THis\Z') . "\r\n";
-            $icalData .= "DTSTART:" . $now->format('Ymd\THis\Z') . "\r\n";
-            $icalData .= "DTEND:" . $now->format('Ymd\THis\Z') . "\r\n";
-            $icalData .= "SUMMARY:" . $activities->title . "\r\n";
-            $icalData .= "DESCRIPTION:" . $activities->content . "\r\n";
-            $icalData .= "LOCATION:" . $activities->location . "\r\n";
-            $icalData .= "END:VENENT\r\n";
-        }
-        
-        $start = new DateTime('2025-01-06 20:30', new DateTimeZone('UTC'));
-        $end = new DateTime('2025-01-06 23:15', new DateTimeZone('UTC'));
+            $duration = clone $activity->duration;
+            if ($duration === null) {
+                $duration = 1;
+            }
+            $dateEnd = clone $activity->date;
+            $dateEnd = $dateEnd->modify("+$duration hours");
 
-        $icalData .= "BEGIN:VENENT\r\n";
+            $icalData .= "BEGIN:VEVENT\r\n";
+            $icalData .= "UID:" . preg_replace('/\s+/', '_', strtolower($activity->title)) . "-" . $activity->date->format('Ymd\THis\Z') . "@esbvpanache.nl\r\n";
+            $icalData .= "DTSTAMP:" . $now->format('Ymd\THis\Z') . "\r\n";
+            if ($activity->duration === null && $activity->date->format('H:i') == '00:00') {
+                $icalData .= "DTSTART;VALUE=DATE:" . $activity->date->format('Ymd') . "\r\n";
+                $icalData .= "DTEND;VALUE=DATE:" . $dateEnd->modify('+1 day')->format('Ymd') . "\r\n";
+            } else {
+                $icalData .= "DTSTART;TZID=Europe/Amsterdam:" . $activity->date->format('Ymd\THis') . "\r\n";
+                $icalData .= "DTEND;TZID=Europe/Amsterdam:" . $dateEnd->format('Ymd\THis') . "\r\n";
+            }
+            $icalData .= "SUMMARY:" . $activity->title_en . "\r\n";
+            $icalData .= "DESCRIPTION:" . $activity->content_en . "\r\n";
+            $icalData .= "LOCATION:" . $activity->location_en . "\r\n";
+            $icalData .= "END:VEVENT\r\n";
+        }
+
+        $start = new DateTime('2025-01-06 20:30');
+        $end = new DateTime('2025-01-06 23:15');
+
+        $icalData .= "BEGIN:VEVENT\r\n";
         $icalData .= "UID:training-monday@esbvpanache.nl\r\n";
         $icalData .= "DTSTAMP:" . $now->format('Ymd\THis\Z') . "\r\n";
-        $icalData .= "DTSTART:" . $start->format('Ymd\THis\Z') . "\r\n";
-        $icalData .= "DTEND:" . $end->format('Ymd\THis\Z') . "\r\n";
+        $icalData .= "DTSTART;TZID=Europe/Amsterdam:" . $start->format('Ymd\THis') . "\r\n";
+        $icalData .= "DTEND;TZID=Europe/Amsterdam:" . $end->format('Ymd\THis') . "\r\n";
         $icalData .= "SUMMARY:Panache Training\r\n";
         $icalData .= "DESCRIPTION:Training in hall 1\r\n";
         $icalData .= "LOCATION:SSCE hall 1\r\n";
         $icalData .= "RRULE:FREQ=WEEKLY;BYDAY=MO\r\n";
-        $icalData .= "END:VENENT\r\n";
+        $icalData .= "END:VEVENT\r\n";
 
-        $start = new DateTime('2025-01-06 20:30', new DateTimeZone('UTC'));
-        $end = new DateTime('2025-01-09 23:15', new DateTimeZone('UTC'));
+        $start = new DateTime('2025-01-09 20:00');
+        $end = new DateTime('2025-01-09 23:15');
 
-        $icalData .= "BEGIN:VENENT\r\n";
+        $icalData .= "BEGIN:VEVENT\r\n";
         $icalData .= "UID:training-thursday@esbvpanache.nl\r\n";
         $icalData .= "DTSTAMP:" . $now->format('Ymd\THis\Z') . "\r\n";
-        $icalData .= "DTSTART:" . $start->format('Ymd\THis\Z') . "\r\n";
-        $icalData .= "DTEND:" . $end->format('Ymd\THis\Z') . "\r\n";
+        $icalData .= "DTSTART;TZID=Europe/Amsterdam:" . $start->format('Ymd\THis') . "\r\n";
+        $icalData .= "DTEND;TZID=Europe/Amsterdam:" . $end->format('Ymd\THis') . "\r\n";
         $icalData .= "SUMMARY:Panache Training\r\n";
         $icalData .= "DESCRIPTION:Training in hall 1\r\n";
         $icalData .= "LOCATION:SSCE hall 1\r\n";
         $icalData .= "RRULE:FREQ=WEEKLY;BYDAY=TH\r\n";
-        $icalData .= "END:VENENT\r\n";
+        $icalData .= "END:VEVENT\r\n";
 
         $icalData .= "END:VCALENDAR\r\n";
 
