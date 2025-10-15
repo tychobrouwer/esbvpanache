@@ -1,8 +1,8 @@
 <x-app-layout>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
-        <div class="flex items-center">
+        <div class="md:flex items-center">
             <p class="pr-6">{!! __('welcome') !!}</p>
-            <x-panache-logo-full class="fill-panache" />
+            <div class="w-1/2"><x-panache-logo-full class="fill-panache" /></div>
         </div>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">

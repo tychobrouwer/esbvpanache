@@ -8,7 +8,7 @@
             <x-secondary-button x-show="expandedView !== 'committees'" @click="expandedView = 'committees'">{{ __('View All') }}</x-secondary-button>
             <x-secondary-button x-show="expandedView === 'committees'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
 
-            <x-secondary-button @click="$dispatch('reset'); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea')">{{ __('Add Committee') }}</x-secondary-button>
+            <x-secondary-button @click="$dispatch('reset'); $dispatch('open-modal', 'committee-form')">{{ __('Add Committee') }}</x-secondary-button>
         </div>
     </header>
 
@@ -23,7 +23,7 @@
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea')" >{{ __('Edit') }}</x-secondary-button>
+                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form')" >{{ __('Edit') }}</x-secondary-button>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
@@ -47,7 +47,7 @@
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form'); $dispatch('update-textarea');" >{{ __('Edit') }}</x-secondary-button>
+                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form')" >{{ __('Edit') }}</x-secondary-button>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')

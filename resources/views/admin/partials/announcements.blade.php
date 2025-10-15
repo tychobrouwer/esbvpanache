@@ -9,18 +9,18 @@
             <x-secondary-button x-show="expandedView === 'announcements'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
 
             <x-secondary-button
-                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form'); $dispatch('update-textarea')">{{ __('Add Announcement') }}</x-secondary-button>
+                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form')">{{ __('Add Announcement') }}</x-secondary-button>
         </div>
     </header>
 
     @forelse ($announcements as $index => $announcement)
-        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
+        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'announcements' || {{ $index }} < 5">
             <div>
                 <div class="font-semibold flex-grow">{{ $announcement->title_en }}</div>
                 <div>{{ $announcement->date->format('F j, Y') }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($announcement) }}); $dispatch('open-modal', 'announcement-form'); $dispatch('update-textarea')" >{{ __('Edit') }}</x-secondary-button>
+                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($announcement) }}); $dispatch('open-modal', 'announcement-form')" >{{ __('Edit') }}</x-secondary-button>
                 <form method="post" action="{{ route('announcement.destroy') }}">
                     @csrf
                     @method('delete')

@@ -14,18 +14,18 @@
             <x-secondary-button x-show="expandedView !== 'activities'" @click="expandedView = 'activities'">{{ __('View All') }}</x-secondary-button>
             <x-secondary-button x-show="expandedView === 'activities'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
             <x-secondary-button
-                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form'); $dispatch('update-textarea')">{{ __('Add Activity') }}</x-secondary-button>
+                @click="$dispatch('reset'); $dispatch('open-modal', 'activity-form')">{{ __('Add Activity') }}</x-secondary-button>
         </div>
     </header>
 
     @forelse ($activities as $index => $activity)
-        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
+        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'activities' || {{ $index }} < 5">
             <div>
                 <div class="font-semibold flex-grow">{{ $activity->title_en }}</div>
                 <div>{{ $activity->date->format('F j, Y') }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($activity) }}); $dispatch('open-modal', 'activity-form'); $dispatch('update-textarea')" >{{ __('Edit') }}</x-secondary-button>
+                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($activity) }}); $dispatch('open-modal', 'activity-form')" >{{ __('Edit') }}</x-secondary-button>
                 <form method="post" action="{{ route('activity.destroy') }}">
                     @csrf
                     @method('delete')
@@ -117,7 +117,7 @@
             </div>
         </div>
         <div class="flex justify-end">
-            <x-secondary-button @click="$dispatch('close-modal', 'announcement-form')"
+            <x-secondary-button @click="$dispatch('close-modal', 'activity-form')"
                 class="me-3">{{ __('Cancel') }}</x-secondary-button>
             <x-primary-button type="submit">
                 <p x-show="form.id">
