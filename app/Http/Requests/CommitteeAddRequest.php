@@ -25,7 +25,16 @@ class CommitteeAddRequest extends FormRequest
     public function messages()
     {
         return [
-            
+            'title_en.required' => __('The title is required.'),
+            'title_en.string' => __('The title must be a string.'),
+            'title_en.max' => __('The title may not be greater than 255 characters.'),
+            'title_nl.required' => __('The title is required.'),
+            'title_nl.string' => __('The title must be a string.'),
+            'title_nl.max' => __('The title may not be greater than 255 characters.'),
+            'description_en.string' => __('The description must be a string.'),
+            'description_nl.string' => __('The description must be a string.'),
+            'is_general.required' => __('The general flag is required.'),
+            'is_general.boolean' => __('The general flag must be true or false.'),
         ];
     }
 

@@ -27,4 +27,19 @@ class ProfileUpdateRequest extends FormRequest
             ],
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'name.required' => __('The name field is required.'),
+            'name.string' => __('The name must be a string.'),
+            'name.max' => __('The name may not be greater than 255 characters.'),
+            'email.required' => __('The email field is required.'),
+            'email.string' => __('The email must be a string.'),
+            'email.lowercase' => __('The email must be in lowercase.'),
+            'email.email' => __('The email must be a valid email address.'),
+            'email.max' => __('The email may not be greater than 255 characters.'),
+            'email.unique' => __('The email has already been taken.'),
+        ];
+    }
 }

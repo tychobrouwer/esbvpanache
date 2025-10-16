@@ -12,11 +12,12 @@ use Illuminate\View\View;
 
 class ActivityController extends Controller
 {
+    /**
+     * Display a listing of the activities.
+     */
     public function index(): View
     {
         $activities = Activity::orderBy('date', 'asc')->get();
-
-        \Log::info('activities', $activities->all());
 
         return view('activities', compact('activities'));
     }
@@ -29,7 +30,7 @@ class ActivityController extends Controller
         Activity::create(attributes: $request->validated());
         (new CalendarController())->update();
 
-        return redirect()->back()->with('status', value: 'activity-created');
+        return redirect()->back()->with('status', 'activity-created');
     }
 
     /**
@@ -40,7 +41,7 @@ class ActivityController extends Controller
         Activity::find($request->id)->update($request->validated());
         (new CalendarController())->update();
 
-        return redirect()->back()->with('status', value: 'activity-updated');
+        return redirect()->back()->with('status', 'activity-updated');
     }
 
     /**

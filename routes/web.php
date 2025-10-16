@@ -8,6 +8,7 @@ use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\CommitteeController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\App;
@@ -54,6 +55,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/committee', [CommitteeController::class, 'create'])->name('committee.create');
     Route::patch('/committee', [CommitteeController::class, 'update'])->name('committee.update');
     Route::delete('/committee', [CommitteeController::class, 'destroy'])->name('committee.destroy');
+
+    Route::post('/image', [ImageController::class, 'create'])->name('image.create');
+    Route::delete('/image', [ImageController::class, 'destroy'])->name('image.destroy');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

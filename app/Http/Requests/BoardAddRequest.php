@@ -30,7 +30,19 @@ class BoardAddRequest extends FormRequest
     public function messages()
     {
         return [
-            
+            'year.unique' => __('A board for this year already exists.'),
+            'year.integer' => __('The year must be a valid integer.'),
+            'year.required' => __('The year field is required.'),
+            'chairperson.required' => __('The chairperson field is required.'),
+            'vice_chairperson.required' => __('The vice chairperson field is required.'),
+            'secretary.required' => __('The secretary field is required.'),
+            'treasurer.required' => __('The treasurer field is required.'),
+            'slogan.required' => __('The slogan field is required.'),
+            'chairperson.max' => __('The chairperson may not be greater than 255 characters.'),
+            'vice_chairperson.max' => __('The vice chairperson may not be greater than 255 characters.'),
+            'secretary.max' => __('The secretary may not be greater than 255 characters.'),
+            'treasurer.max' => __('The treasurer may not be greater than 255 characters.'),
+            'slogan.max' => __('The slogan may not be greater than 255 characters.'),
         ];
     }
 

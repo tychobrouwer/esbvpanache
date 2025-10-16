@@ -18,7 +18,7 @@
                 {{ __('General Committees') }}
             </x-header>
             @forelse ($general_committees as $index => $committee)
-                <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
+                <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
@@ -42,7 +42,7 @@
                 {{ __('Non-General Committees') }}
             </x-header>
             @forelse ($non_general_committees as $index => $committee)
-                <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
+                <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
@@ -75,33 +75,33 @@
             <x-language-switcher x-model="lang" />
         </x-header>
 
-        <div class="mb-4">
+        <div class="mb-2">
             <div x-show="lang === 'en'">
-                <x-input-label for="title_en" :value="__('Title (EN)')" />
-                <x-text-input name="title_en" x-model="form.translations.en.title" />
+                <x-input-label for="committee_title_en" :value="__('Title') . ' (EN)'" />
+                <x-text-input name="title_en" id="committee_title_en" x-model="form.translations.en.title" />
                 <x-input-error :messages="$errors->committee->get('title_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
-                <x-input-label for="title_nl" :value="__('Title (NL)')" />
-                <x-text-input name="title_nl" x-model="form.translations.nl.title" />
+                <x-input-label for="committee_title_nl" :value="__('Title') . ' (NL)'" />
+                <x-text-input name="title_nl" id="committee_title_nl" x-model="form.translations.nl.title" />
                 <x-input-error :messages="$errors->committee->get('title_nl')" class="mt-2" />
             </div>
         </div>
-        <div class="mb-4">
+        <div class="mb-2">
             <div x-show="lang === 'en'">
-                <x-input-label for="description_en" :value="__('Description (EN)')" />
-                <x-text-area name="description_en" x-model="form.translations.en.description" />
+                <x-input-label for="committee_description_en" :value="__('Description') . ' (EN)'" />
+                <x-text-area name="description_en" id="committee_description_en" x-model="form.translations.en.description" />
                 <x-input-error :messages="$errors->committee->get('description_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
-                <x-input-label for="description_nl" :value="__('Description (NL)')" />
-                <x-text-area name="description_nl" x-model="form.translations.nl.description" />
+                <x-input-label for="committee_description_nl" :value="__('Description') . ' (NL)'" />
+                <x-text-area name="description_nl" id="committee_description_nl" x-model="form.translations.nl.description" />
                 <x-input-error :messages="$errors->committee->get('description_nl')" class="mt-2" />
             </div>
         </div>
-        <div class="mb-4 flex items-center gap-2">
-            <x-input-label for="is_general" :value="__('Is General Committee')" />
-            <x-checkbox-input name="is_general" model="form.is_general" />
+        <div class="mb-2 flex items-center gap-2">
+            <x-input-label for="committee_is_general" :value="__('Is General Committee')" />
+            <x-checkbox-input name="is_general" id="committee_is_general" model="form.is_general" />
             <x-input-error :messages="$errors->committee->get('is_general')" class="mt-2" />
         </div>
         <div class="flex justify-end">

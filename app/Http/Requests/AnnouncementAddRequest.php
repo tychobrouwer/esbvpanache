@@ -26,7 +26,12 @@ class AnnouncementAddRequest extends FormRequest
     public function messages()
     {
         return [
-            
+            'title_en.required' => __('The title is required.'),
+            'title_nl.required' => __('The title is required.'),
+            'date.required' => __('The date is required.'),
+            'date.date' => __('The date must be a valid date in the format YYYY-MM-DD.'),
+            'content_en.required' => __('The content is required.'),
+            'content_nl.required' => __('The content is required.'),
         ];
     }
 

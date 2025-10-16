@@ -20,7 +20,7 @@
                     <x-dropdown align="right" width="w-48">
                         <x-slot name="trigger">
                             <x-primary-button>
-                                <div>{{ __('About Panache') }}</div>
+                                <div>{{ __('About') }} Panache</div>
 
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -86,7 +86,7 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
                     <x-primary-nav-link :href="url('https://esbvpanache.nl/toernooi')" :active="false">
-                        {{ __('Panache Tournament') }}
+                        Panache {{ __('Tournament') }}
                     </x-primary-nav-link>
                 </div>
 

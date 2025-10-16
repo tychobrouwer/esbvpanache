@@ -12,12 +12,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CalendarController extends Controller
 {
-    private int $lastCreated;
-
-	public function __contruct() {
-		$this->lastCreated = 0;
-	}
-
     /**
      * Show the calendar.
      */

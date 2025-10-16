@@ -28,7 +28,7 @@ function activityDateString($activity) {
                     </div>
                 </div>
             @empty
-                <div class="text-gray-500">{{ __('No announcements yet.') }}</div>
+                <div class="text-gray-500">{{ __('No upcoming activities yet.') }}</div>
             @endforelse
         </div>
     </div>

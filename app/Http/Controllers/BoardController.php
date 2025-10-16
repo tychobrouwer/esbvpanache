@@ -30,7 +30,7 @@ class BoardController extends Controller
     {
         Board::create($request->validated());
 
-        return redirect()->back()->with('status', value: 'board-created');
+        return redirect()->back()->with('status', 'board-created');
     }
 
     /**
@@ -51,7 +51,7 @@ class BoardController extends Controller
 
         Board::find($request->id)->update($validated);
 
-        return redirect()->back()->with('status', value: 'board-updated');
+        return redirect()->back()->with('status', 'board-updated');
     }
 
     /**

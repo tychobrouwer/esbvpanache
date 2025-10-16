@@ -28,7 +28,7 @@ class CommitteeController extends Controller
     {
         Committee::create($request->validated());
 
-        return redirect()->back()->with('status', value: 'committee-created');
+        return redirect()->back()->with('status', 'committee-created');
     }
 
     /**
@@ -38,7 +38,7 @@ class CommitteeController extends Controller
     {
         Committee::find($request->id)->update($request->validated());
 
-        return redirect()->back()->with('status', value: 'committee-updated');
+        return redirect()->back()->with('status', 'committee-updated');
     }
 
     /**

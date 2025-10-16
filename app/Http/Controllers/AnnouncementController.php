@@ -16,7 +16,7 @@ class AnnouncementController extends Controller
     {
         Announcement::create($request->validated());
 
-        return redirect()->back()->with('status', value: 'announcement-created');
+        return redirect()->back()->with('status', 'announcement-created');
     }
 
     /**
@@ -26,7 +26,7 @@ class AnnouncementController extends Controller
     {        
         Announcement::find($request->id)->update($request->validated());
 
-        return redirect()->back()->with('status', value: 'announcement-updated');
+        return redirect()->back()->with('status', 'announcement-updated');
     }
 
     /**

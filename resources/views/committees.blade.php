@@ -29,7 +29,7 @@
 		</div>
 		<div>
 			<x-header size="xl">
-				{{ __('PKK Committees') }}
+				{{ __('PKK and Other Committees') }}
 			</x-header>
 			If there is no description, then this committee has no regular meetings, activities, or something like that. This committee then has no direct visible impact on the association.
 			

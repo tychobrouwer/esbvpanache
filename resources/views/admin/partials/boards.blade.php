@@ -32,7 +32,7 @@ function ordinal($number) {
     </header>
 
     @forelse ($boards as $index => $board)
-        <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'boards' || {{ $index }} < 3">
+        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'boards' || {{ $index }} < 3">
             <div>
                 <div class="font-semibold flex-grow">{{ boardString($board) }}</div>
                 <div>{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ ordinal($board->year) }}</div>
@@ -64,49 +64,49 @@ function ordinal($number) {
             <x-language-switcher x-model="lang" />
         </x-header>
 
-        <div class="mb-4">
+        <div class="mb-2">
             <x-input-label :value="__('Year')" />
             <x-text-input name="year" x-model="form.year" />
             <x-input-error :messages="$errors->board->get('year')" class="mt-2" />
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
-            <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Chairperson')" />
-                <x-text-input name="chairperson" x-model="form.chairperson" />
+            <div class="mb-2 flex-grow">
+                <x-input-label for="board_chairperson" :value="__('Chairperson')" />
+                <x-text-input id="board_chairperson" name="chairperson" x-model="form.chairperson" />
                 <x-input-error :messages="$errors->board->get('chairperson')" class="mt-2" />
             </div>
-            <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Vice-chairperson')" />
-                <x-text-input name="vice_chairperson" x-model="form.vice_chairperson" />
+            <div class="mb-2 flex-grow">
+                <x-input-label for="board_vice_chairperson" :value="__('Vice-chairperson')" />
+                <x-text-input id="board_vice_chairperson" name="vice_chairperson" x-model="form.vice_chairperson" />
                 <x-input-error :messages="$errors->board->get('vice_chairperson')" class="mt-2" />
             </div>
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
-            <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Secretary')" />
-                <x-text-input name="secretary" x-model="form.secretary" />
+            <div class="mb-2 flex-grow">
+                <x-input-label for="board_secretary" :value="__('Secretary')" />
+                <x-text-input id="board_secretary" name="secretary" x-model="form.secretary" />
                 <x-input-error :messages="$errors->board->get('secretary')" class="mt-2" />
             </div>
-            <div class="mb-4 flex-grow">
-                <x-input-label :value="__('Treasurer')" />
-                <x-text-input name="treasurer" x-model="form.treasurer" />
+            <div class="mb-2 flex-grow">
+                <x-input-label for="board_treasurer" :value="__('Treasurer')" />
+                <x-text-input id="board_treasurer" name="treasurer" x-model="form.treasurer" />
                 <x-input-error :messages="$errors->board->get('treasurer')" class="mt-2" />
             </div>
         </div>
-        <div class="mb-4">
-            <x-input-label :value="__('Slogan')" />
-            <x-text-input name="slogan" x-model="form.slogan" />
+        <div class="mb-2">
+            <x-input-label for="board_slogan" :value="__('Slogan')" />
+            <x-text-input id="board_slogan" name="slogan" x-model="form.slogan" />
             <x-input-error :messages="$errors->board->get('slogan')" class="mt-2" />
         </div>
-        <div class="mb-4">
+        <div class="mb-2">
             <div x-show="lang === 'en'">
-                <x-input-label for="message_en" :value="__('Message (EN)')" />
-                <x-text-area name="message_en" x-model="form.translations.en.message" />
+                <x-input-label for="board_message_en" :value="__('Message') . ' (EN)'" />
+                <x-text-area id="board_message_en" name="message_en" x-model="form.translations.en.message" />
                 <x-input-error :messages="$errors->board->get('message_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
-                <x-input-label for="message_nl" :value="__('Message (NL)')" />
-                <x-text-area name="message_nl" x-model="form.translations.nl.message" />
+                <x-input-label for="board_message_nl" :value="__('Message') . ' (NL)'" />
+                <x-text-area id="board_message_nl" name="message_nl" x-model="form.translations.nl.message" />
                 <x-input-error :messages="$errors->board->get('message_nl')" class="mt-2" />
             </div>
         </div>

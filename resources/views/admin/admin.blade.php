@@ -15,6 +15,9 @@
                 <div x-show="expandedView === 'no' || expandedView === 'boards'" :class="expandedView === 'boards' ? 'col-span-1 lg:col-span-2' : ''" class="p-6 bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg">
                     @include('admin.partials.boards')
                 </div>
+                <div x-show="expandedView === 'no' || expandedView === 'images'" :class="expandedView === 'images' ? 'col-span-1 lg:col-span-2' : ''" class="p-6 bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg">
+                    @include('admin.partials.images')
+                </div>
                 <div x-show="expandedView === 'no' || expandedView === 'committees'" class="p-6 bg-gray-100 overflow-hidden shadow-sm sm:rounded-lg col-span-1 lg:col-span-2">
                     @include('admin.partials.committees')
                 </div>

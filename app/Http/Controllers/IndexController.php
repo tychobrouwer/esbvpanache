@@ -8,6 +8,9 @@ use Illuminate\View\View;
 
 class IndexController extends Controller
 {
+    /**
+     * Display the homepage with recent announcements and activities.
+     */
     public function index(): View
     {
         $announcements = Announcement::orderBy('date', 'desc')->take(6)->get();

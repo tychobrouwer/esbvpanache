@@ -27,10 +27,10 @@
         </div>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
+        <x-header size="2xl" class="col-span-full">
+            {{ __('Information') }}
+        </x-header>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <x-header size="2xl" class="col-span-full">
-                {{ __('Information') }}
-            </x-header>
             <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
                 <div>
                     <div class="font-semibold flex-grow">{{ __('Training & Playing') }}</div>
