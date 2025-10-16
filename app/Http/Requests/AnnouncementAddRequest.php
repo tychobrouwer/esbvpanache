@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class AnnouncementAddRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class AnnouncementAddRequest extends FormRequest
         return [
             'title_en' => [ 'required', 'string', 'max:255' ],
             'title_nl' => [ 'required', 'string', 'max:255' ],
-            'date' => [ 'required', 'date' ],
+            'date' => [ 'required', Rule::date()->format('Y-m-d') ],
             'content_en' => [ 'required', 'string' ],
             'content_nl' => [ 'required', 'string' ],
         ];

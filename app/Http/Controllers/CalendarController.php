@@ -41,7 +41,7 @@ class CalendarController extends Controller
 
         $activities = Activity::get();
         foreach ($activities as $activity) {
-            $duration = clone $activity->duration;
+            $duration = $activity->duration;
             if ($duration === null) {
                 $duration = 1;
             }

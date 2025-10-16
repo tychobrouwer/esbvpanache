@@ -32,7 +32,7 @@ function ordinal($number) {
     </header>
 
     @forelse ($boards as $index => $board)
-        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'boards' || {{ $index }} < 5">
+        <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'boards' || {{ $index }} < 3">
             <div>
                 <div class="font-semibold flex-grow">{{ boardString($board) }}</div>
                 <div>{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ ordinal($board->year) }}</div>

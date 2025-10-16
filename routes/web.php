@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
 Route::get('/board', [BoardController::class, 'index'])->name('board');
-Route::get('/activities', function () { return view('activities'); })->name('activities');
+Route::get('/activities', [ActivityController::class, 'index'])->name('activities');
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 Route::get('/history', function () { return view('history'); })->name('history');
 Route::get('/committees', [CommitteeController::class, 'index'])->name('committees');

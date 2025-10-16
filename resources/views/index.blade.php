@@ -13,10 +13,10 @@
             @forelse ($announcements as $announcement)
                 <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
                     <div>
-                        <div class="font-semibold flex-grow">{{ $announcement->title_en }}</div>
+                        <div class="font-semibold flex-grow">{{ App::isLocale('nl') ? $announcement->title_nl : $announcement->title_en }}</div>
                         <div>{{ $announcement->date->format('F j,  Y') }}</div>
                         <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                            {!! nl2br(e($announcement->content_en)) !!}
+                            {!! nl2br(e(App::isLocale('nl') ? $announcement->content_nl : $announcement->content_en)) !!}
                         </div>
                     </div>
                     <x-secondary-button class="self-end">{{ __('Read More') }}</x-secondary-button>

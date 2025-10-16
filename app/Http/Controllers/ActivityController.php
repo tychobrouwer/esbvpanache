@@ -8,9 +8,19 @@ use App\Http\Controllers\CalendarController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\View\View;
 
 class ActivityController extends Controller
 {
+    public function index(): View
+    {
+        $activities = Activity::orderBy('date', 'asc')->get();
+
+        \Log::info('activities', $activities->all());
+
+        return view('activities', compact('activities'));
+    }
+
     /**
      * Add the activity information.
      */

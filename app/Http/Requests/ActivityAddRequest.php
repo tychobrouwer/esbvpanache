@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ActivityAddRequest extends FormRequest
 {
@@ -16,7 +17,7 @@ class ActivityAddRequest extends FormRequest
         return [
             'title_en' => [ 'required', 'string', 'max:255' ],
             'title_nl' => [ 'required', 'string', 'max:255' ],
-            'date' => [ 'required', 'date' ],
+            'date' => [ 'required', Rule::date()->format('d-m-Y H:i') ],
             'duration' => [ 'nullable', 'digits_between:0,1,numeric', 'min:0' ],
             'location_en' => [ 'required', 'string', 'max:255' ],
             'location_nl' => [ 'required', 'string', 'max:255' ],

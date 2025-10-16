@@ -1,8 +1,7 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-b-gray-100 border-t-4 border-t-panache">
     <!-- Primary Navigation Menu -->
-    <!-- <div class="w-full h-1 bg-panache"></div> -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-10">
+        <div class="flex justify-between my-1">
             <div class="flex items-center">
                 <a href="{{ route('index') }}">
                     <x-panache-logo class="h-8 w-14 fill-panache" />

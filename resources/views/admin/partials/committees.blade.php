@@ -18,7 +18,7 @@
                 {{ __('General Committees') }}
             </x-header>
             @forelse ($general_committees as $index => $committee)
-                <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
+                <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
@@ -42,7 +42,7 @@
                 {{ __('Non-General Committees') }}
             </x-header>
             @forelse ($non_general_committees as $index => $committee)
-                <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 5">
+                <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
                     <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>

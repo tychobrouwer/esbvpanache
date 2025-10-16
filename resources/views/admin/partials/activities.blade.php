@@ -13,7 +13,7 @@
     </header>
 
     @forelse ($activities as $index => $activity)
-        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'activities' || {{ $index }} < 5">
+        <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'activities' || {{ $index }} < 3">
             <div>
                 <div class="font-semibold flex-grow">{{ $activity->title_en }}</div>
                 <div>{{ $activity->date->format('F j, Y') }}</div>
@@ -154,14 +154,14 @@
 
                 this.form.id = data.id;
                 this.form.translations.en.title = data.title_en || '';
-                this.form.translations.en.content = data.location_en || '';
-                this.form.translations.en.content = data.cost_en || '';
-                this.form.translations.en.content = data.join_en || '';
+                this.form.translations.en.location = data.location_en || '';
+                this.form.translations.en.cost = data.cost_en || '';
+                this.form.translations.en.join = data.join_en || '';
                 this.form.translations.en.content = data.content_en || '';
                 this.form.translations.nl.title = data.title_nl || '';
-                this.form.translations.nl.content = data.location_nl || '';
-                this.form.translations.nl.content = data.cost_nl || '';
-                this.form.translations.nl.content = data.join_nl || '';
+                this.form.translations.nl.location = data.location_nl || '';
+                this.form.translations.nl.cost = data.cost_nl || '';
+                this.form.translations.nl.join = data.join_nl || '';
                 this.form.translations.nl.content = data.content_nl || '';
                 this.form.date = datestring;
                 this.form.duration = data.duration || '';

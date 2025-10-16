@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title_en');
             $table->string('title_nl');
-            $table->date('date');
+            $table->dateTime('date');
             $table->float('duration')->nullable();
             $table->string('location_en');
             $table->string('location_nl');

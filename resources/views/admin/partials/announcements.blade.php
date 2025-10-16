@@ -14,7 +14,7 @@
     </header>
 
     @forelse ($announcements as $index => $announcement)
-        <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'announcements' || {{ $index }} < 5">
+        <div class="mb-1 flex justify-between items-center" x-show="expandedView === 'announcements' || {{ $index }} < 3">
             <div>
                 <div class="font-semibold flex-grow">{{ $announcement->title_en }}</div>
                 <div>{{ $announcement->date->format('F j, Y') }}</div>
