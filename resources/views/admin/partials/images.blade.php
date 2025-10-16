@@ -1,5 +1,5 @@
 <section x-cloak>
-    <header x-data class="flex justify-between items-center">
+    <header x-data class="mb-2 flex justify-between items-center">
         <x-header size="xl">
             {{ __('Images') }}
         </x-header>
@@ -18,6 +18,13 @@
             <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
                 {{ $image->tag }}
             </div>
+            <form class="ml-auto" method="post" action="{{ route('image.destroy') }}">
+                @csrf
+                @method('delete')
+
+                <input type="hidden" name="image_id" value="{{ $image->id }}">
+                <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
+            </form>
         </div>
     @empty
         <div class="text-gray-500">{{ __('No images yet.') }}</div>

@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Http\Requests\ImageAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
@@ -35,6 +36,15 @@ class ImageController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
+        $request->validate([
+            'image_id' => 'required|exists:images,id',
+        ]);
+
+        $image = Image::find($request->image_id);
+        $image->delete();
+
+        Storage::disk('public')->delete($image->path);
+
         return redirect()->back()->with('success', 'image-destroyed');
     }
 }

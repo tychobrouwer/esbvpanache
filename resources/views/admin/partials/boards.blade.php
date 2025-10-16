@@ -17,7 +17,7 @@ function ordinal($number) {
 ?>
 
 <section x-cloak>
-    <header x-data class="flex justify-between items-center">
+    <header x-data class="mb-2 flex justify-between items-center">
         <x-header size="xl">
             {{ __('Boards') }}
         </x-header>
