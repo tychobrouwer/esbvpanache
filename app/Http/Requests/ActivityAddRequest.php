@@ -67,9 +67,4 @@ class ActivityAddRequest extends FormRequest
             'content_nl.string' => __('The content must be a string.'),
         ];
     }
-
-    public function withValidator($validator)
-    {
-        $validator->validateWithBag('activity');
-    }   
 }

@@ -15,8 +15,21 @@ class BoardAddRequest extends FormRequest
      */
     public function rules(): array
     {
+        if ($this->id) {
+            return [
+                'year' => [ 'required', 'integer', Rule::unique(Board::class, 'year')->ignore($this->id) ],
+                'chairperson' => [ 'required', 'string', 'max:255' ],
+                'vice_chairperson' => [ 'required', 'string', 'max:255' ],
+                'secretary' => [ 'required', 'string', 'max:255' ],
+                'treasurer' => [ 'required', 'string', 'max:255' ],
+                'slogan' => [ 'required', 'string', 'max:255' ],
+                'message_en' => [ 'nullable', 'string' ],
+                'message_nl' => [ 'nullable', 'string' ],
+            ];
+        }
+
         return [
-            'year' => [ 'required', 'integer', Rule::unique(Board::class) ],
+            'year' => [ 'required', 'integer', Rule::unique(Board::class, 'year') ],
             'chairperson' => [ 'required', 'string', 'max:255' ],
             'vice_chairperson' => [ 'required', 'string', 'max:255' ],
             'secretary' => [ 'required', 'string', 'max:255' ],
@@ -48,6 +61,10 @@ class BoardAddRequest extends FormRequest
 
     public function withValidator($validator)
     {
-        $validator->validateWithBag('board');
-    }   
+        if ($this['id'] > 0) {
+            $validator->validateWithBag('boardUpdate');
+        } else {
+            $validator->validateWithBag('boardCreate');
+        }
+    }
 }

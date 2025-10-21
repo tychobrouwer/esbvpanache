@@ -8,6 +8,7 @@ use App\Http\Controllers\CalendarController;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class ActivityController extends Controller
@@ -26,23 +27,46 @@ class ActivityController extends Controller
     /**
      * Add the activity information.
      */
-    public function create(ActivityAddRequest $request): RedirectResponse
-    {        
-        Activity::create(attributes: $request->validated());
-        (new CalendarController())->update();
+    public function store(Request $request): RedirectResponse
+    {
+        $formId = $request->input('form_id', 'activity-form');
+        
+        // Create validator with prefixed error bag
+        $validator = Validator::make($request->all(), (new ActivityAddRequest())->rules());
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors(), $formId);
+        }
+        
+        Activity::create($validator->validated());
+        $this->updateCalendar();
 
-        return redirect()->back()->with('status', 'activity-created');
+        return back()->with('status', 'activity-created');
     }
 
     /**
      * Update the activity information.
      */
-    public function update(ActivityAddRequest $request): RedirectResponse
+    public function update(Request $request, Activity $activity): RedirectResponse
     {
-        Activity::find($request->id)->update($request->validated());
-        (new CalendarController())->update();
+        $formId = $request->input('form_id', 'activity-form');
+        
+        // Create validator with prefixed error bag
+        $validator = Validator::make($request->all(), (new ActivityAddRequest())->rules());
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors(), $formId);
+        }
+        
+        $activity->update($validator->validated());
+        $this->updateCalendar();
+        
+        return back()->with('status', 'activity-updated');
+    }
 
-        return redirect()->back()->with('status', 'activity-updated');
+    private function updateCalendar(): void
+    {
+        (new CalendarController())->update();
     }
 
     /**
@@ -58,6 +82,6 @@ class ActivityController extends Controller
         $activity->delete();
         (new CalendarController())->update();
 
-        return redirect()->back()->with('success', 'activity-destroyed');
+        return back()->with('success', 'activity-destroyed');
     }
 }

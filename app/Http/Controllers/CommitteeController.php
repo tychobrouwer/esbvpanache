@@ -28,7 +28,7 @@ class CommitteeController extends Controller
     {
         Committee::create($request->validated());
 
-        return redirect()->back()->with('status', 'committee-created');
+        return back()->with('status', 'committee-created');
     }
 
     /**
@@ -38,7 +38,7 @@ class CommitteeController extends Controller
     {
         Committee::find($request->id)->update($request->validated());
 
-        return redirect()->back()->with('status', 'committee-updated');
+        return back()->with('status', 'committee-updated');
     }
 
     /**
@@ -53,6 +53,6 @@ class CommitteeController extends Controller
         $committee = Committee::find($request->committee_id);
         $committee->delete();
 
-        return redirect()->back()->with('success', 'committee-destroyed');
+        return back()->with('success', 'committee-destroyed');
     }
 }

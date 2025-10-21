@@ -28,7 +28,7 @@ class ImageController extends Controller
             'filename' => $filename,
         ]);
 
-        return redirect()->back()->with('status', 'image-created');
+        return back()->with('status', 'image-created');
     }
 
     /**
@@ -45,7 +45,7 @@ class ImageController extends Controller
 
         Storage::disk('public')->delete($image->path);
 
-        return redirect()->back()->with('success', 'image-destroyed');
+        return back()->with('success', 'image-destroyed');
     }
 
     /**

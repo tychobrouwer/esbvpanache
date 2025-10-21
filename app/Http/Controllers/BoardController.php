@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule; 
 
 class BoardController extends Controller
@@ -26,32 +27,39 @@ class BoardController extends Controller
     /**
      * Add the board information.
      */
-    public function create(BoardAddRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        Board::create($request->validated());
+        $formId = $request->input('form_id', 'board-form');
+        
+        // Create validator with prefixed error bag
+        $validator = Validator::make($request->all(), (new BoardAddRequest())->rules());
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors(), $formId);
+        }
+        
+        Board::create($validator->validated());
 
-        return redirect()->back()->with('status', 'board-created');
+        return back()->with('status', 'board-created');
     }
 
     /**
      * Update the board information.
      */
-    public function update(FormRequest $request): RedirectResponse
-    {       
-        $validated = $request->validateWithBag('board', [
-            'year' => [ 'required', 'integer', Rule::unique(Board::class)->ignore($request->id) ],
-            'chairperson' => [ 'required', 'string', 'max:255' ],
-            'vice_chairperson' => [ 'required', 'string', 'max:255' ],
-            'secretary' => [ 'required', 'string', 'max:255' ],
-            'treasurer' => [ 'required', 'string', 'max:255' ],
-            'slogan' => [ 'required', 'string', 'max:255' ],
-            'message_en' => [ 'nullable', 'string' ],
-            'message_nl' => [ 'nullable', 'string' ],
-        ]);
-
-        Board::find($request->id)->update($validated);
-
-        return redirect()->back()->with('status', 'board-updated');
+    public function update(Request $request, Board $board): RedirectResponse
+    {
+        $formId = $request->input('form_id', 'board-form');
+        
+        // Create validator with prefixed error bag
+        $validator = Validator::make($request->all(), (new BoardAddRequest())->rules());
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors(), $formId);
+        }
+        
+        $board->update($validator->validated());
+        
+        return back()->with('status', 'board-updated');
     }
 
     /**
@@ -66,6 +74,6 @@ class BoardController extends Controller
         $board = Board::find($request->board_id);
         $board->delete();
 
-        return redirect()->back()->with('success', 'board-destroyed');
+        return back()->with('success', 'board-destroyed');
     }
 }

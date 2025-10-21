@@ -20,7 +20,7 @@ function activityDateString($activity) {
             {{ __('Upcoming Activities') }}
         </x-header>
         <p>{!! __('upcoming_activities_message') !!}</p>
-        <div class="grid grid-cols-1 gap-6 mb-6">
+        <div class="grid grid-cols-1 gap-6">
             @forelse ($upcomingActivities as $activity)
             <x-card-link :title="App::isLocale('nl') ? $activity->title_nl : $activity->title_en" :limit="false" >
                 <div>{{ activityDateString($activity) }}</div>
@@ -35,6 +35,8 @@ function activityDateString($activity) {
                 <div class="text-gray-500">{{ __('No upcoming activities yet.') }}</div>
             @endforelse
         </div>
+    </div>
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
         <x-header size="2xl">
             {{ __('Past Activities') }}
         </x-header>

@@ -9,7 +9,8 @@
             <x-button-secondary x-show="expandedView === 'boards'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-button-secondary>
 
             <x-button-secondary
-                @click="$dispatch('reset'); $dispatch('open-modal', 'board-form')">{{ __('Add') }}</x-button-secondary>
+                @click="$dispatch('reset'); $dispatch('open-modal', 'new-board')"
+            >{{ __('Add') }}</x-button-secondary>
         </div>
     </header>
 
@@ -20,7 +21,11 @@
                 <div>{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ $board->ordinal() }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-button-secondary @click="$dispatch('load-data', {{ json_encode($board) }}); $dispatch('open-modal', 'board-form')" >{{ __('Edit') }}</x-button-secondary>
+                <x-button-secondary 
+                    @click="$dispatch('open-modal', 'edit-board-{{ $board->id }}')"
+                >
+                    {{ __('Edit') }}
+                </x-button-secondary>
                 <form method="post" action="{{ route('board.destroy') }}">
                     @csrf
                     @method('delete')
@@ -30,12 +35,21 @@
                 </form>
             </div>
         </div>
+
+        <x-modal name="edit-board-{{ $board->id }}" :show="$errors->getBag('edit-board-'. $board->id)->any()" maxWidth="lg">
+            <x-form-board :board="$board" formId="edit-board-{{ $board->id }}" />
+        </x-modal>
     @empty
         <div class="text-gray-500">{{ __('No boards yet.') }}</div>
     @endforelse
 </section>
 
-<x-modal name="board-form" :show="$errors->board->any()" maxWidth="lg">
+<x-modal name="new-board" :show="$errors->getBag('new-board')->any()" maxWidth="lg">
+    <x-form-board :board="null" formId="new-board" />
+</x-modal>
+
+
+{{-- <x-modal name="board-form" :show="$errors->board->any()" maxWidth="lg">
     <form method="post" :action="form.id ? '{{ route('board.update') }}' : '{{ route('board.create') }}'" x-data="boardForm()" @reset.window="reset()" @load-data.window="load($event.detail)">
         @csrf
         <input type="hidden" name="_method" :value="form.id ? 'PATCH' : 'POST'">
@@ -152,4 +166,4 @@
             }
         }
     }
-</script>
+</script> --}}

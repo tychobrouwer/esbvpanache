@@ -38,5 +38,5 @@ class ImageAddRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->validateWithBag('image');
-    }   
+    }
 }

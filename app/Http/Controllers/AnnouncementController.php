@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Announcement;
 use App\Http\Requests\AnnouncementAddRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class AnnouncementController extends Controller
@@ -12,21 +13,39 @@ class AnnouncementController extends Controller
     /**
      * Add the announcement information.
      */
-    public function create(AnnouncementAddRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        Announcement::create($request->validated());
+        $formId = $request->input('form_id', 'announcement-form');
+        
+        // Create validator with prefixed error bag
+        $validator = Validator::make($request->all(), (new AnnouncementAddRequest())->rules());
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors(), $formId);
+        }
+        
+        Announcement::create($validator->validated());
 
-        return redirect()->back()->with('status', 'announcement-created');
+        return back()->with('status', 'announcement-created');
     }
 
     /**
      * Update the announcement information.
      */
-    public function update(AnnouncementAddRequest $request): RedirectResponse
-    {        
-        Announcement::find($request->id)->update($request->validated());
-
-        return redirect()->back()->with('status', 'announcement-updated');
+    public function update(Request $request, Announcement $announcement): RedirectResponse
+    {
+        $formId = $request->input('form_id', 'announcement-form');
+        
+        // Create validator with prefixed error bag
+        $validator = Validator::make($request->all(), (new AnnouncementAddRequest())->rules());
+        
+        if ($validator->fails()) {
+            return back()->withErrors($validator->errors(), $formId);
+        }
+        
+        $announcement->update($validator->validated());
+        
+        return back()->with('status', 'announcement-updated');
     }
 
     /**
@@ -41,6 +60,6 @@ class AnnouncementController extends Controller
         $announcement = Announcement::find($request->announcement_id);
         $announcement->delete();
 
-        return redirect()->back()->with('success', 'announcement-destroyed');
+        return back()->with('success', 'announcement-destroyed');
     }
 }

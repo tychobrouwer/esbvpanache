@@ -41,17 +41,17 @@ Route::get('/locale-switch', function() {
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
-    Route::post('/activity', [ActivityController::class, 'create'])->name('activity.create');
-    Route::patch('/activity', [ActivityController::class, 'update'])->name('activity.update');
-    Route::delete('/activity', [ActivityController::class, 'destroy'])->name('activity.destroy');
+    Route::post('/activities', [ActivityController::class, 'store'])->name('activity.store');
+    Route::put('/activities/{activity}', [ActivityController::class, 'update'])->name('activity.update');
+    Route::delete('/activities', [ActivityController::class, 'destroy'])->name('activity.destroy');
 
-    Route::post('/announcement', [AnnouncementController::class, 'create'])->name('announcement.create');
-    Route::patch('/announcement', [AnnouncementController::class, 'update'])->name('announcement.update');
-    Route::delete('/announcement', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
+    Route::post('/announcements', [AnnouncementController::class, 'store'])->name('announcement.store');
+    Route::put('/announcements/{announcement}', [ActivityController::class, 'update'])->name('announcement.update');
+    Route::delete('/announcements', [AnnouncementController::class, 'destroy'])->name('announcement.destroy');
 
-    Route::post('/board', [BoardController::class, 'create'])->name('board.create');
-    Route::patch('/board', [BoardController::class, 'update'])->name('board.update');
-    Route::delete('/board', [BoardController::class, 'destroy'])->name('board.destroy');
+    Route::post('/boards', [BoardController::class, 'store'])->name('board.store');
+    Route::put('/boards/{board}', [BoardController::class, 'update'])->name('board.update');
+    Route::delete('/boards', [BoardController::class, 'destroy'])->name('board.destroy');
 
     Route::post('/committee', [CommitteeController::class, 'create'])->name('committee.create');
     Route::patch('/committee', [CommitteeController::class, 'update'])->name('committee.update');

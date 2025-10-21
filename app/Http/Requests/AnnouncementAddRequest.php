@@ -17,13 +17,13 @@ class AnnouncementAddRequest extends FormRequest
         return [
             'title_en' => [ 'required', 'string', 'max:255' ],
             'title_nl' => [ 'required', 'string', 'max:255' ],
-            'date' => [ 'required', Rule::date()->format('Y-m-d') ],
+            'date' => [ 'required', Rule::date()->format('d-m-Y') ],
             'content_en' => [ 'required', 'string' ],
             'content_nl' => [ 'required', 'string' ],
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'title_en.required' => __('The title is required.'),
@@ -34,9 +34,4 @@ class AnnouncementAddRequest extends FormRequest
             'content_nl.required' => __('The content is required.'),
         ];
     }
-
-    public function withValidator($validator)
-    {
-        $validator->validateWithBag('announcement');
-    }   
 }

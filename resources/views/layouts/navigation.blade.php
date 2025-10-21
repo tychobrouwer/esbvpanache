@@ -91,12 +91,6 @@
                     </x-link-nav-primary>
                 </div>
 
-                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-3 lg:ms-6 sm:flex">
-                    <x-link-nav-primary :href="route('contact')" :active="request()->routeIs('contact')">
-                        {{ __('Contact') }}
-                    </x-link-nav-primary>
-                </div> --}}
-
                 <div class="hidden space-x-8 sm:-my-px sm:ms-3 lg:ms-6 sm:flex">
                     <x-link-nav-primary :href="route('locale-switch')" :active="false">
                         @if (App::isLocale('en'))

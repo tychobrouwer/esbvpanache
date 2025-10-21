@@ -40,6 +40,10 @@ class CommitteeAddRequest extends FormRequest
 
     public function withValidator($validator)
     {
-        $validator->validateWithBag('committee');
-    }   
+        if ($this['id'] > 0) {
+            $validator->validateWithBag('committeeUpdate');
+        } else {
+            $validator->validateWithBag('committeeCreate');
+        }
+    }
 }
