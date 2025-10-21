@@ -38,4 +38,45 @@ class Board extends Model
       		'year' => 'integer',
         ];
     }
+
+    /**
+     * Get a string representation of the board members.
+     */
+    public function string() {
+        return
+            current(explode(" ", $this->chairperson)) . ", " .
+            current(explode(" ", $this->vice_chairperson)) . ", " .
+            current(explode(" ", $this->secretary)) . ", " .
+            current(explode(" ", $this->treasurer));
+    }
+
+    /**
+     * Get the ordinal representation of the board year.
+     */
+    public function ordinal() {
+        $number = $this->year;
+        $ends = array('th','st','nd','rd','th','th','th','th','th','th');
+
+        if ((($number % 100) >= 11) && (($number%100) <= 13)) {
+            return $number. 'th';
+        } else {
+            return $number. $ends[$number % 10];
+        }
+    }
+
+    public function chairpersonShort() {
+        return current(explode(" ", $this->chairperson));
+    }
+
+    public function viceChairpersonShort() {
+        return current(explode(" ", $this->vice_chairperson));
+    }
+
+    public function secretaryShort() {
+        return current(explode(" ", $this->secretary));
+    }
+
+    public function treasurerShort() {
+        return current(explode(" ", $this->treasurer));
+    }
 }

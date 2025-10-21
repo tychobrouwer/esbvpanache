@@ -5,10 +5,10 @@
         </x-header>
 
         <div class="flex items-center gap-3">
-            <x-secondary-button x-show="expandedView !== 'committees'" @click="expandedView = 'committees'">{{ __('View All') }}</x-secondary-button>
-            <x-secondary-button x-show="expandedView === 'committees'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
+            <x-button-secondary x-show="expandedView !== 'committees'" @click="expandedView = 'committees'">{{ __('View All') }}</x-button-secondary>
+            <x-button-secondary x-show="expandedView === 'committees'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-button-secondary>
 
-            <x-secondary-button @click="$dispatch('reset'); $dispatch('open-modal', 'committee-form')">{{ __('Add Committee') }}</x-secondary-button>
+            <x-button-secondary @click="$dispatch('reset'); $dispatch('open-modal', 'committee-form')">{{ __('Add') }}</x-button-secondary>
         </div>
     </header>
 
@@ -19,17 +19,17 @@
             </x-header>
             @forelse ($general_committees as $index => $committee)
                 <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
-                    <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
+                    <div class="font-semibold mr-3 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form')" >{{ __('Edit') }}</x-secondary-button>
+                        <x-button-secondary @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form')" >{{ __('Edit') }}</x-button-secondary>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
 
                             <input type="hidden" name="committee_id" value="{{ $committee->id }}">
-                            <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
+                            <x-button-danger type="submit">{{ __('Delete') }}</x-button-danger>
                         </form>
                     </div>
                 </div>
@@ -43,17 +43,17 @@
             </x-header>
             @forelse ($non_general_committees as $index => $committee)
                 <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'committees' || {{ $index }} < 3">
-                    <div class="font-semibold mr-6 text-nowrap overflow-hidden text-clip">
+                    <div class="font-semibold mr-3 text-nowrap overflow-hidden text-clip">
                         {{ App::isLocale('nl') ? $committee->title_nl : $committee->title_en }}
                     </div>
                     <div class="flex items-center gap-3">
-                        <x-secondary-button @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form')" >{{ __('Edit') }}</x-secondary-button>
+                        <x-button-secondary @click="$dispatch('load-data', {{ json_encode($committee) }}); $dispatch('open-modal', 'committee-form')" >{{ __('Edit') }}</x-button-secondary>
                         <form class="ml-auto" method="post" action="{{ route('committee.destroy') }}">
                             @csrf
                             @method('delete')
 
                             <input type="hidden" name="committee_id" value="{{ $committee->id }}">
-                            <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
+                            <x-button-danger type="submit">{{ __('Delete') }}</x-button-danger>
                         </form>
                     </div>
                 </div>
@@ -78,43 +78,43 @@
         <div class="mb-2">
             <div x-show="lang === 'en'">
                 <x-input-label for="committee_title_en" :value="__('Title') . ' (EN)'" />
-                <x-text-input name="title_en" id="committee_title_en" x-model="form.translations.en.title" />
+                <x-input-text name="title_en" id="committee_title_en" x-model="form.translations.en.title" />
                 <x-input-error :messages="$errors->committee->get('title_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-input-label for="committee_title_nl" :value="__('Title') . ' (NL)'" />
-                <x-text-input name="title_nl" id="committee_title_nl" x-model="form.translations.nl.title" />
+                <x-input-text name="title_nl" id="committee_title_nl" x-model="form.translations.nl.title" />
                 <x-input-error :messages="$errors->committee->get('title_nl')" class="mt-2" />
             </div>
         </div>
         <div class="mb-2">
             <div x-show="lang === 'en'">
                 <x-input-label for="committee_description_en" :value="__('Description') . ' (EN)'" />
-                <x-text-area name="description_en" id="committee_description_en" x-model="form.translations.en.description" />
+                <x-input-text-area name="description_en" id="committee_description_en" x-model="form.translations.en.description" />
                 <x-input-error :messages="$errors->committee->get('description_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-input-label for="committee_description_nl" :value="__('Description') . ' (NL)'" />
-                <x-text-area name="description_nl" id="committee_description_nl" x-model="form.translations.nl.description" />
+                <x-input-text-area name="description_nl" id="committee_description_nl" x-model="form.translations.nl.description" />
                 <x-input-error :messages="$errors->committee->get('description_nl')" class="mt-2" />
             </div>
         </div>
         <div class="mb-2 flex items-center gap-2">
             <x-input-label for="committee_is_general" :value="__('Is General Committee')" />
-            <x-checkbox-input name="is_general" id="committee_is_general" model="form.is_general" />
+            <x-input-checkbox name="is_general" id="committee_is_general" model="form.is_general" />
             <x-input-error :messages="$errors->committee->get('is_general')" class="mt-2" />
         </div>
         <div class="flex justify-end">
-            <x-secondary-button @click="$dispatch('close-modal', 'committee-form')"
-                class="me-3">{{ __('Cancel') }}</x-secondary-button>
-            <x-primary-button type="submit">
+            <x-button-secondary @click="$dispatch('close-modal', 'committee-form')"
+                class="me-3">{{ __('Cancel') }}</x-button-secondary>
+            <x-button-primary type="submit">
                 <p x-show="form.id">
                     {{ __('Update') }}
                 </p >
                 <p x-show="!form.id">
                     {{ __('Add') }}
                 </p >
-            </x-primary-button>
+            </x-button-primary>
         </div>
     </form>
 </x-modal>

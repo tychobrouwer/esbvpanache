@@ -1,21 +1,3 @@
-<?php
-function boardString($board) {
-    return
-        current(explode(" ", $board->chairperson)) . ", " .
-        current(explode(" ", $board->vice_chairperson)) . ", " .
-        current(explode(" ", $board->secretary)) . ", " .
-        current(explode(" ", $board->treasurer));
-}
-
-function ordinal($number) {
-    $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-    if ((($number % 100) >= 11) && (($number%100) <= 13))
-        return $number. 'th';
-    else
-        return $number. $ends[$number % 10];
-}
-?>
-
 <section x-cloak>
     <header x-data class="mb-2 flex justify-between items-center">
         <x-header size="xl">
@@ -23,28 +5,28 @@ function ordinal($number) {
         </x-header>
 
         <div class="flex items-center gap-3">
-            <x-secondary-button x-show="expandedView !== 'boards'" @click="expandedView = 'boards'">{{ __('View All') }}</x-secondary-button>
-            <x-secondary-button x-show="expandedView === 'boards'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
+            <x-button-secondary x-show="expandedView !== 'boards'" @click="expandedView = 'boards'">{{ __('View All') }}</x-button-secondary>
+            <x-button-secondary x-show="expandedView === 'boards'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-button-secondary>
 
-            <x-secondary-button
-                @click="$dispatch('reset'); $dispatch('open-modal', 'board-form')">{{ __('Add Board') }}</x-secondary-button>
+            <x-button-secondary
+                @click="$dispatch('reset'); $dispatch('open-modal', 'board-form')">{{ __('Add') }}</x-button-secondary>
         </div>
     </header>
 
     @forelse ($boards as $index => $board)
         <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'boards' || {{ $index }} < 3">
-            <div>
-                <div class="font-semibold flex-grow">{{ boardString($board) }}</div>
-                <div>{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ ordinal($board->year) }}</div>
+            <div class="inline-grid">
+                <div class="font-semibold mr-3 text-nowrap overflow-hidden text-clip">{{ $board->string() }}</div>
+                <div>{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ $board->ordinal() }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($board) }}); $dispatch('open-modal', 'board-form')" >{{ __('Edit') }}</x-secondary-button>
+                <x-button-secondary @click="$dispatch('load-data', {{ json_encode($board) }}); $dispatch('open-modal', 'board-form')" >{{ __('Edit') }}</x-button-secondary>
                 <form method="post" action="{{ route('board.destroy') }}">
                     @csrf
                     @method('delete')
 
                     <input type="hidden" name="board_id" value="{{ $board->id }}">
-                    <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
+                    <x-button-danger type="submit">{{ __('Delete') }}</x-button-danger>
                 </form>
             </div>
         </div>
@@ -66,61 +48,61 @@ function ordinal($number) {
 
         <div class="mb-2">
             <x-input-label :value="__('Year')" />
-            <x-text-input name="year" x-model="form.year" />
+            <x-input-text name="year" x-model="form.year" />
             <x-input-error :messages="$errors->board->get('year')" class="mt-2" />
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-2 flex-grow">
                 <x-input-label for="board_chairperson" :value="__('Chairperson')" />
-                <x-text-input id="board_chairperson" name="chairperson" x-model="form.chairperson" />
+                <x-input-text id="board_chairperson" name="chairperson" x-model="form.chairperson" />
                 <x-input-error :messages="$errors->board->get('chairperson')" class="mt-2" />
             </div>
             <div class="mb-2 flex-grow">
                 <x-input-label for="board_vice_chairperson" :value="__('Vice-chairperson')" />
-                <x-text-input id="board_vice_chairperson" name="vice_chairperson" x-model="form.vice_chairperson" />
+                <x-input-text id="board_vice_chairperson" name="vice_chairperson" x-model="form.vice_chairperson" />
                 <x-input-error :messages="$errors->board->get('vice_chairperson')" class="mt-2" />
             </div>
         </div>
         <div class="flex md:gap-4 flex-col md:flex-row">
             <div class="mb-2 flex-grow">
                 <x-input-label for="board_secretary" :value="__('Secretary')" />
-                <x-text-input id="board_secretary" name="secretary" x-model="form.secretary" />
+                <x-input-text id="board_secretary" name="secretary" x-model="form.secretary" />
                 <x-input-error :messages="$errors->board->get('secretary')" class="mt-2" />
             </div>
             <div class="mb-2 flex-grow">
                 <x-input-label for="board_treasurer" :value="__('Treasurer')" />
-                <x-text-input id="board_treasurer" name="treasurer" x-model="form.treasurer" />
+                <x-input-text id="board_treasurer" name="treasurer" x-model="form.treasurer" />
                 <x-input-error :messages="$errors->board->get('treasurer')" class="mt-2" />
             </div>
         </div>
         <div class="mb-2">
             <x-input-label for="board_slogan" :value="__('Slogan')" />
-            <x-text-input id="board_slogan" name="slogan" x-model="form.slogan" />
+            <x-input-text id="board_slogan" name="slogan" x-model="form.slogan" />
             <x-input-error :messages="$errors->board->get('slogan')" class="mt-2" />
         </div>
         <div class="mb-2">
             <div x-show="lang === 'en'">
                 <x-input-label for="board_message_en" :value="__('Message') . ' (EN)'" />
-                <x-text-area id="board_message_en" name="message_en" x-model="form.translations.en.message" />
+                <x-input-text-area id="board_message_en" name="message_en" x-model="form.translations.en.message" />
                 <x-input-error :messages="$errors->board->get('message_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-input-label for="board_message_nl" :value="__('Message') . ' (NL)'" />
-                <x-text-area id="board_message_nl" name="message_nl" x-model="form.translations.nl.message" />
+                <x-input-text-area id="board_message_nl" name="message_nl" x-model="form.translations.nl.message" />
                 <x-input-error :messages="$errors->board->get('message_nl')" class="mt-2" />
             </div>
         </div>
         <div class="flex justify-end">
-            <x-secondary-button @click="$dispatch('close-modal', 'board-form')"
-                class="me-3">{{ __('Cancel') }}</x-secondary-button>
-            <x-primary-button type="submit">
+            <x-button-secondary @click="$dispatch('close-modal', 'board-form')"
+                class="me-3">{{ __('Cancel') }}</x-button-secondary>
+            <x-button-primary type="submit">
                 <p x-show="form.id">
                     {{ __('Update') }}
                 </p >
                 <p x-show="!form.id">
                     {{ __('Add') }}
                 </p >
-            </x-primary-button>
+            </x-button-primary>
         </div>
     </form>
 </x-modal>

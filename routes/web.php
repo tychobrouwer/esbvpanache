@@ -15,16 +15,19 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 
 Route::get('/', [IndexController::class, 'index'])->name('index');
-Route::get('/board', [BoardController::class, 'index'])->name('board');
 Route::get('/activities', [ActivityController::class, 'index'])->name('activities');
-Route::get('/contact', [ContactController::class, 'index'])->name('contact');
-Route::get('/history', function () { return view('history'); })->name('history');
-Route::get('/committees', [CommitteeController::class, 'index'])->name('committees');
-Route::get('/member-documents', function () { return view('member-documents'); })->name('member-documents');
-Route::get('/training-and-playing', function () { return view('training-and-playing'); })->name('training-and-playing');
-Route::get('/membership', function () { return view('membership'); })->name('membership');
-Route::get('/competition', function () { return view('competition'); })->name('competition');
-Route::get('/pictures', function () { return view('pictures'); })->name('pictures');
+
+Route::get('/about-us/contact', [ContactController::class, 'index'])->name('contact');
+Route::get('/about-us/board', [BoardController::class, 'index'])->name('board');
+Route::get('/about-us/history', function () { return view('history'); })->name('history');
+Route::get('/about-us/committees', [CommitteeController::class, 'index'])->name('committees');
+Route::get('/about-us/member-documents', function () { return view('member-documents'); })->name('member-documents');
+Route::get('/about-us/pictures', function () { return view('pictures'); })->name('pictures');
+
+Route::get('/playing/training', function () { return view('training'); })->name('training');
+Route::get('/playing/membership', function () { return view('membership'); })->name('membership');
+Route::get('/playing/competition', function () { return view('competition'); })->name('competition');
+
 Route::get('/panache.ics', [CalendarController::class, 'index']);
 
 Route::get('/locale-switch', function() {    
@@ -34,8 +37,6 @@ Route::get('/locale-switch', function() {
 
     return back();
 })->name('locale-switch');
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');

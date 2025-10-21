@@ -17,9 +17,10 @@ class ActivityController extends Controller
      */
     public function index(): View
     {
-        $activities = Activity::orderBy('date', 'asc')->get();
+        $upcomingActivities = Activity::where('date', '>=', now())->orderBy('date', 'asc')->get();
+        $pastActivities = Activity::where('date', '<', now())->orderBy('date', 'desc')->get();
 
-        return view('activities', compact('activities'));
+        return view('activities', compact('upcomingActivities', 'pastActivities'));
     }
 
     /**

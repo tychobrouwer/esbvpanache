@@ -1,4 +1,4 @@
-@props(['max_width' => 'max-w-5xl'])
+@props(['max_width' => 'max-w-7xl'])
 
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scroll-behavior: smooth; overflow-y: scroll;">

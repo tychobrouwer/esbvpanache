@@ -1,36 +1,37 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-b-gray-100 border-t-4 border-t-panache">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between my-1">
-            <div class="flex items-center">
-                <a href="{{ route('index') }}">
-                    <x-panache-logo class="h-8 w-14 fill-panache" />
-                </a>
-            </div>
+        <div class="flex justify-center lg:justify-between items-center my-1">
+            <a class="hidden lg:block" href="{{ route('index') }}">
+                <x-panache-logo class="h-8 w-14 fill-panache" />
+            </a>
 
-            <div class="sm:flex sm:items-center sm:ms-6">
+            <div class="sm:flex sm:items-center lg:ms-6">
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-primary-nav-link :href="route('index')" :active="request()->routeIs('index')">
-                        {{ __('Home') }}
-                    </x-primary-nav-link>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-3 lg:ms-6 sm:flex">
+                    <x-link-nav-primary :href="route('index')" :active="request()->routeIs('index')">
+                        {{ __('Home') }} 
+                    </x-link-nav-primary>
                 </div>
 
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <div class="hidden sm:flex sm:items-center sm:ms-3 lg:ms-6">
                     <x-dropdown align="right" width="w-48">
                         <x-slot name="trigger">
-                            <x-primary-button>
-                                <div>{{ __('About') }} Panache</div>
+                            <x-button-primary>
+                                <div>{{ __('About Us') }}</div>
 
                                 <div class="ms-1">
                                     <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                            </x-primary-button>
+                            </x-button-primary>
                         </x-slot>
 
                         <x-slot name="content">
+                            <x-dropdown-link :href="route('contact')" :active="request()->routeIs('contact')">
+                                {{ __('Contact') }}
+                            </x-dropdown-link>
                             <x-dropdown-link :href="route('board')" :active="request()->routeIs('board')">
                                 {{ __('Board') }}
                             </x-dropdown-link>
@@ -50,10 +51,10 @@
                     </x-dropdown>
                 </div>
 
-                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <div class="hidden sm:flex sm:items-center sm:ms-3 lg:ms-6">
                     <x-dropdown align="right" width="w-48">
                         <x-slot name="trigger">
-                            <x-primary-button>
+                            <x-button-primary>
                                 <div>{{ __('Playing at Panache') }}</div>
 
                                 <div class="ms-1">
@@ -61,12 +62,12 @@
                                         <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
-                            </x-primary-button>
+                            </x-button-primary>
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('training-and-playing')" :active="request()->routeIs('training-and-playing')">
-                                {{ __('Training & Playing') }}
+                            <x-dropdown-link :href="route('training')" :active="request()->routeIs('training')">
+                                {{ __('Training') }}
                             </x-dropdown-link>
                             <x-dropdown-link :href="route('membership')" :active="request()->routeIs('membership')">
                                 {{ __('Membership') }}
@@ -78,26 +79,26 @@
                     </x-dropdown>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-primary-nav-link :href="route('activities')" :active="request()->routeIs('activities')">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-3 lg:ms-6 sm:flex">
+                    <x-link-nav-primary :href="route('activities')" :active="request()->routeIs('activities')">
                         {{ __('Activities') }}
-                    </x-primary-nav-link>
+                    </x-link-nav-primary>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-primary-nav-link :href="url('https://esbvpanache.nl/toernooi')" :active="false">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-3 lg:ms-6 sm:flex">
+                    <x-link-nav-primary :href="url('https://esbvpanache.nl/toernooi')" :active="false">
                         Panache {{ __('Tournament') }}
-                    </x-primary-nav-link>
+                    </x-link-nav-primary>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-primary-nav-link :href="route('contact')" :active="request()->routeIs('contact')">
+                {{-- <div class="hidden space-x-8 sm:-my-px sm:ms-3 lg:ms-6 sm:flex">
+                    <x-link-nav-primary :href="route('contact')" :active="request()->routeIs('contact')">
                         {{ __('Contact') }}
-                    </x-primary-nav-link>
-                </div>
+                    </x-link-nav-primary>
+                </div> --}}
 
-                <div class="hidden space-x-8 sm:-my-px sm:ms-6 sm:flex">
-                    <x-primary-nav-link :href="route('locale-switch')" :active="false">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-3 lg:ms-6 sm:flex">
+                    <x-link-nav-primary :href="route('locale-switch')" :active="false">
                         @if (App::isLocale('en'))
                             {{-- NL&#127475;&#127473; --}}
                             EN &#10132; NL
@@ -105,7 +106,7 @@
                             {{-- EN&#127466;&#127475; --}}
                             NL &#10132; EN
                         @endif
-                    </x-primary-nav-link>
+                    </x-link-nav-primary>
                 </div>
             </div>
 

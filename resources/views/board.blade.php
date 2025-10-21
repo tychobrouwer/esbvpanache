@@ -1,16 +1,4 @@
-<?php
-function firstName($name) {
-    return current(explode(" ", $name));
-}
-
-function ordinal($number) {
-    $ends = array('th','st','nd','rd','th','th','th','th','th','th');
-    if ((($number % 100) >= 11) && (($number%100) <= 13))
-        return $number. 'th';
-    else
-        return $number. $ends[$number % 10];
-}
-?>
+<?php use App\Http\Controllers\ImageController; ?>
 
 @props(['nr_of_boards' => 3])
 
@@ -19,7 +7,7 @@ function ordinal($number) {
         <x-header size="2xl">
             {{ __('Board') }}
         </x-header>
-        <p>{{ App::isLocale('nl') ? $board->message_nl : $board->message_en }}</p>
+        {!! ImageController::addImageToContent(App::isLocale('nl') ? $board->message_nl : $board->message_en) !!}
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6" x-data x-cloak>
         <x-header size="2xl">
@@ -29,12 +17,12 @@ function ordinal($number) {
             @foreach ($boards as $index => $board)
                 <div class="previous_board min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between" x-show="{{ $index }} < {{ $nr_of_boards }}">
                     <div>
-                        <div class="font-semibold flex-grow">{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ ordinal($board->year) }}</div>
+                        <div class="font-semibold flex-grow">{{ $board->year + 1962 }}-{{ $board->year + 1963 }}, {{ $board->ordinal() }}</div>
                         <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                            <strong>{{ __('Chairperson') }}:</strong> {{ firstName($board->chairperson) }}<br>
-                            <strong>{{ __('Vice-chairperson') }}:</strong> {{ firstName($board->vice_chairperson) }}<br>
-                            <strong>{{ __('Secretary') }}:</strong> {{ firstName($board->secretary) }}<br>
-                            <strong>{{ __('Treasurer') }}:</strong> {{ firstName($board->treasurer) }}<br>
+                            <strong>{{ __('Chairperson') }}:</strong> {{ $board->chairpersonShort() }}<br>
+                            <strong>{{ __('Vice-chairperson') }}:</strong> {{ $board->viceChairpersonShort() }}<br>
+                            <strong>{{ __('Secretary') }}:</strong> {{ $board->secretaryShort() }}<br>
+                            <strong>{{ __('Treasurer') }}:</strong> {{ $board->treasurerShort() }}<br>
                             <strong>{{ __('Slogan') }}:</strong> {{ $board->slogan }}
                         </div>
                     </div>

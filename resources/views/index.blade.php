@@ -11,16 +11,9 @@
         </x-header>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($announcements as $announcement)
-                <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
-                    <div>
-                        <div class="font-semibold flex-grow">{{ App::isLocale('nl') ? $announcement->title_nl : $announcement->title_en }}</div>
-                        <div>{{ $announcement->date->format('F j,  Y') }}</div>
-                        <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                            {!! nl2br(e(App::isLocale('nl') ? $announcement->content_nl : $announcement->content_en)) !!}
-                        </div>
-                    </div>
-                    <x-secondary-button class="self-end">{{ __('Read More') }}</x-secondary-button>
-                </div>
+                <x-card-link :title="App::isLocale('nl') ? $announcement->title_nl : $announcement->title_en" :date="$announcement->date->format('F j,  Y')" :limit="true">
+                    {!! nl2br(e(App::isLocale('nl') ? $announcement->content_nl : $announcement->content_en)) !!}
+                </x-card-link>
             @empty
                 <div class="text-gray-500">{{ __('No announcements yet.') }}</div>
             @endforelse
@@ -31,33 +24,17 @@
             {{ __('Information') }}
         </x-header>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
-                <div>
-                    <div class="font-semibold flex-grow">{{ __('Training & Playing') }}</div>
-                    <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                        {!! __('playing_message') !!}
-                    </div>
-                </div>
-                <x-secondary-nav-link :href="route('training-and-playing')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
-            </div>
-            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
-                <div>
-                    <div class="font-semibold flex-grow">{{ __('Membership') }}</div>
-                    <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                        {!! __('membership_form_message') !!}
-                    </div>
-                </div>
-                <x-secondary-nav-link :href="route('membership')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
-            </div>
-            <div class="min-w-[200px] bg-gray-100 overflow-hidden shadow-sm rounded-lg p-6 border-b-4 border-panache flex flex-col justify-between">
-                <div>
-                    <div class="font-semibold flex-grow">{{ __('Competition') }}</div>
-                    <div class="my-4 text-gray-800 text-ellipsis line-clamp-5">
-                        {!! __('competition_message') !!}
-                    </div>
-                </div>
-                <x-secondary-nav-link :href="route('competition')" :active="false" class="self-end">{{ __('Read More') }}</x-secondary-button>
-            </div>
+            <x-card-link :title="__('Training')" :limit="true" href="{{ route('training') }}">
+                {!! __('playing_message') !!}
+            </x-card-link>
+
+            <x-card-link :title="__('Membership')" :limit="true" href="{{ route('membership') }}">
+                {!! __('membership_form_message') !!}
+            </x-card-link>
+
+            <x-card-link :title="__('Competition')" :limit="true" href="{{ route('competition') }}">
+                {!! __('competition_message') !!}
+            </x-card-link>
         </div>
     </div>
 </x-app-layout>

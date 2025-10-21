@@ -5,28 +5,28 @@
         </x-header>
 
         <div class="flex items-center gap-3">
-            <x-secondary-button x-show="expandedView !== 'announcements'" @click="expandedView = 'announcements'">{{ __('View All') }}</x-secondary-button>
-            <x-secondary-button x-show="expandedView === 'announcements'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-secondary-button>
+            <x-button-secondary x-show="expandedView !== 'announcements'" @click="expandedView = 'announcements'">{{ __('View All') }}</x-button-secondary>
+            <x-button-secondary x-show="expandedView === 'announcements'" @click="expandedView = 'no'">{{ __('Back to Dashboard') }}</x-button-secondary>
 
-            <x-secondary-button
-                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form')">{{ __('Add Announcement') }}</x-secondary-button>
+            <x-button-secondary
+                @click="$dispatch('reset'); $dispatch('open-modal', 'announcement-form')">{{ __('Add') }}</x-button-secondary>
         </div>
     </header>
 
     @forelse ($announcements as $index => $announcement)
         <div class="mb-2 flex justify-between items-center" x-show="expandedView === 'announcements' || {{ $index }} < 3">
-            <div>
-                <div class="font-semibold flex-grow">{{ $announcement->title_en }}</div>
+            <div class="inline-grid">
+                <div class="font-semibold mr-3 text-nowrap overflow-hidden text-clip">{{ $announcement->title_en }}</div>
                 <div>{{ $announcement->date->format('F j, Y') }}</div>
             </div>
             <div class="flex items-center gap-3">
-                <x-secondary-button @click="$dispatch('load-data', {{ json_encode($announcement) }}); $dispatch('open-modal', 'announcement-form')" >{{ __('Edit') }}</x-secondary-button>
+                <x-button-secondary @click="$dispatch('load-data', {{ json_encode($announcement) }}); $dispatch('open-modal', 'announcement-form')" >{{ __('Edit') }}</x-button-secondary>
                 <form method="post" action="{{ route('announcement.destroy') }}">
                     @csrf
                     @method('delete')
 
                     <input type="hidden" name="announcement_id" value="{{ $announcement->id }}">
-                    <x-danger-button type="submit">{{ __('Delete') }}</x-danger-button>
+                    <x-button-danger type="submit">{{ __('Delete') }}</x-button-danger>
                 </form>
             </div>
         </div>
@@ -50,44 +50,44 @@
             <div class="mb-2 flex-grow">
                 <div x-show="lang === 'en'">
                     <x-input-label for="announcement_title_en" :value="__('Title') . ' (EN)'" />
-                    <x-text-input id="announcement_title_en" name="title_en" x-model="form.translations.en.title" />
+                    <x-input-text id="announcement_title_en" name="title_en" x-model="form.translations.en.title" />
                     <x-input-error :messages="$errors->announcement->get('title_en')" class="mt-2" />
                 </div>
                 <div x-show="lang === 'nl'">
                     <x-input-label for="announcement_title_nl" :value="__('Title') . ' (NL)'" />
-                    <x-text-input id="announcement_title_nl" name="title_nl" x-model="form.translations.nl.title" />
+                    <x-input-text id="announcement_title_nl" name="title_nl" x-model="form.translations.nl.title" />
                     <x-input-error :messages="$errors->announcement->get('title_nl')" class="mt-2" />
                 </div>
             </div>
             <div class="mb-2 flex-grow">
                 <x-input-label for="announcement_date" :value="__('Date')" />
-                <x-text-input id="announcement_date" name="date" placeholder="25-7-2025" x-model="form.date" />
+                <x-input-text id="announcement_date" name="date" placeholder="25-7-2025" x-model="form.date" />
                 <x-input-error :messages="$errors->announcement->get('date')" />
             </div>
         </div>
         <div class="mb-2">
             <div x-show="lang === 'en'">
                 <x-input-label for="announcement_content_en" :value="__('Content') . ' (EN)'" />
-                <x-text-area id="announcement_content_en" name="content_en" x-model="form.translations.en.content" />
+                <x-input-text-area id="announcement_content_en" name="content_en" x-model="form.translations.en.content" />
                 <x-input-error :messages="$errors->announcement->get('content_en')" class="mt-2" />
             </div>
             <div x-show="lang === 'nl'">
                 <x-input-label for="announcement_content_nl" :value="__('Content') . ' (NL)'" />
-                <x-text-area id="announcement_content_nl" name="content_nl" x-model="form.translations.nl.content" />
+                <x-input-text-area id="announcement_content_nl" name="content_nl" x-model="form.translations.nl.content" />
                 <x-input-error :messages="$errors->announcement->get('content_nl')" class="mt-2" />
             </div>
         </div>
         <div class="flex justify-end">
-            <x-secondary-button @click="$dispatch('close-modal', 'announcement-form')"
-                class="me-3">{{ __('Cancel') }}</x-secondary-button>
-            <x-primary-button type="submit">
+            <x-button-secondary @click="$dispatch('close-modal', 'announcement-form')"
+                class="me-3">{{ __('Cancel') }}</x-button-secondary>
+            <x-button-primary type="submit">
                 <p x-show="form.id">
                     {{ __('Update') }}
                 </p >
                 <p x-show="!form.id">
                     {{ __('Add') }}
                 </p >
-            </x-primary-button>
+            </x-button-primary>
         </div>
     </form>
 </x-modal>
