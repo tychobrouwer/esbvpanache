@@ -30,7 +30,7 @@
             @endforeach
             @if (count($boards) > $nr_of_boards)
                 <div class="col-span-full text-center">
-                    <button class="text-panache font-semibold" @click="document.querySelectorAll('.previous_board').forEach(el => el.style.display = 'flex'); $el.style.display = 'none';">
+                    <button class="text-panache-600 font-semibold" @click="document.querySelectorAll('.previous_board').forEach(el => el.style.display = 'flex'); $el.style.display = 'none';">
                         {{ __('Show all boards') }}
                     </button>
                 </div>

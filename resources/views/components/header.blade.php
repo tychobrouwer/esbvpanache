@@ -9,7 +9,7 @@
     {{ $slot }}
 </h3>
 @else
-<h4 {{ $attributes->merge(['class' => 'text-panache font-semibold text-lg']) }}>
+<h4 {{ $attributes->merge(['class' => 'text-panache-600 font-semibold text-lg']) }}>
     {{ $slot }}
 </h4>
 @endif

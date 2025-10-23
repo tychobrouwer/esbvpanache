@@ -25,7 +25,7 @@
             ESBV Panache<br>
             Onze Lieve Vrouwestraat 1<br>
             5612 AW Eindhoven<br>
-            <a class="text-panache" href="https://ssceindhoven.tue.nl/en">Website SSCE</a><br><br>
+            <a class="text-panache-600" href="https://ssceindhoven.tue.nl/en">Website SSCE</a><br><br>
             {{ __('ssc_directions') }}
         </p>
     </div>

@@ -2,7 +2,7 @@
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
         <div class="md:flex items-center">
             <p class="pr-6 basis-3/5">{!! __('welcome') !!}</p>
-            <x-panache-logo-full class="fill-panache text-panache basis-2/5" />
+            <x-panache-logo-full class="fill-panache text-panache-600 basis-2/5" />
         </div>
     </div>
     <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg grid grid-cols-1 gap-3 p-6 mb-6">
@@ -11,7 +11,7 @@
         </x-header>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse ($announcements as $announcement)
-                <x-card-link :title="App::isLocale('nl') ? $announcement->title_nl : $announcement->title_en" :date="$announcement->date->format('F j,  Y')" :limit="true">
+                <x-card-link :title="App::isLocale('nl') ? $announcement->title_nl : $announcement->title_en" :date="$announcement->date->format('F j,  Y')" :limit="true" href="{{ route('announcement', ['announcement' => $announcement->id]) }}">
                     {!! nl2br(e(App::isLocale('nl') ? $announcement->content_nl : $announcement->content_en)) !!}
                 </x-card-link>
             @empty

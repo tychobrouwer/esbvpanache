@@ -35,7 +35,7 @@ class BoardController extends Controller
         $validator = Validator::make($request->all(), (new BoardAddRequest())->rules());
         
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors(), $formId);
+            return back()->withErrors($validator->errors(), $formId)->withInput();
         }
         
         Board::create($validator->validated());
@@ -54,7 +54,7 @@ class BoardController extends Controller
         $validator = Validator::make($request->all(), (new BoardAddRequest())->rules());
         
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors(), $formId);
+            return back()->withErrors($validator->errors(), $formId)->withInput();
         }
         
         $board->update($validator->validated());

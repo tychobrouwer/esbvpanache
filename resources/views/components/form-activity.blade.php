@@ -3,7 +3,7 @@
 <form method="POST" id="{{ $formId }}"
     :action="form.id ? '{{ route('activity.update', '_ID_') }}'.replace('_ID_', form.id) : '{{ route('activity.store') }}'"
     x-data="activityForm({
-        initialActivity: @js($activity),
+        initialActivity: @js($activity ? $activity : session()->getOldInput()),
         formId: '{{ $formId }}'
     })">
     @csrf
@@ -33,10 +33,9 @@
     <div class="flex md:gap-4 flex-col md:flex-row">
         <div class="mb-2 flex-grow">
             <x-input-label for="{{ $formId }}_date" :value="__('Date & Time')" />
-            <x-input-text id="{{ $formId }}_date" name="date" placeholder="25-07-2025 14:30"
-                x-model="form.date" />
+            {{-- <x-input-text id="{{ $formId }}_date" name="date" placeholder="25-07-2025 14:30" x-model="form.date" /> --}}
 
-            {{-- <x-input-datetime id="{{ $formId }}_date" name="date" x-model="form.date" /> --}}
+            <x-input-datetime id="{{ $formId }}_date" name="date" x-model="form.date" />
             <x-input-error :messages="$errors->getBag($formId)->get('date') ?? $errors->get('date')" class="mt-2" />
         </div>
         <div class="mb-2 flex-grow">
@@ -125,20 +124,8 @@
             form: {
                 id: null,
                 translations: {
-                    en: {
-                        title: '',
-                        location: '',
-                        cost: '',
-                        join: '',
-                        content: ''
-                    },
-                    nl: {
-                        title: '',
-                        location: '',
-                        cost: '',
-                        join: '',
-                        content: ''
-                    }
+                    en: { title: '', location: '', cost: '', join: '', content: '' },
+                    nl: { title: '', location: '', cost: '', join: '', content: '' }
                 },
                 date: '',
                 duration: ''
@@ -153,15 +140,9 @@
             load(data) {
                 if (!data) return;
 
-                // Format date for display
-                const d = data.date ? new Date(data.date) : new Date();
-                const pad = n => n.toString().padStart(2, '0');
-                const formattedDate =
-                    `${pad(d.getDate())}-${pad(d.getMonth()+1)}-${d.getFullYear()} ${pad(d.getHours())}:${pad(d.getMinutes())}`;
-
                 // Set form data
                 this.form.id = data.id;
-                this.form.date = formattedDate;
+                this.form.date = data.date;
                 this.form.duration = data.duration || '';
 
                 // Set translations

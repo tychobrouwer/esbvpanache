@@ -17,7 +17,7 @@ class ActivityAddRequest extends FormRequest
         return [
             'title_en' => [ 'required', 'string', 'max:255' ],
             'title_nl' => [ 'required', 'string', 'max:255' ],
-            'date' => [ 'required', Rule::date()->format('d-m-Y H:i') ],
+            'date' => [ 'required', Rule::date()->format('Y-m-d H:i') ],
             'duration' => [ 'nullable', 'digits_between:0,1,numeric', 'min:0' ],
             'location_en' => [ 'required', 'string', 'max:255' ],
             'location_nl' => [ 'required', 'string', 'max:255' ],

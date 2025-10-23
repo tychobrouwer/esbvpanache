@@ -4,7 +4,7 @@
     :action="form.id ? '{{ route('announcement.update', '_ID_') }}'.replace('_ID_', form.id) :
         '{{ route('announcement.store') }}'"
     x-data="announcementForm({
-        initialAnnouncement: @js($announcement),
+        initialAnnouncement: @js($announcement ? $announcement : session()->getOldInput()),
         formId: '{{ $formId }}'
     })">
     @csrf
@@ -32,10 +32,7 @@
         </div>
         <div class="mb-2 flex-grow">
             <x-input-label for="{{ $formId }}_date" :value="__('Date')" />
-            <x-input-text id="{{ $formId }}_date" name="date" placeholder="25-07-2025 14:30"
-                x-model="form.date" />
-
-            {{-- <x-input-datetime id="{{ $formId }}_date" name="date" x-model="form.date" /> --}}
+            <x-input-datetime id="{{ $formId }}_date" name="date" x-model="form.date" />
             <x-input-error :messages="$errors->getBag($formId)->get('date') ?? $errors->get('date')" class="mt-2" />
         </div>
     </div>
@@ -74,20 +71,8 @@
             form: {
                 id: null,
                 translations: {
-                    en: {
-                        title: '',
-                        location: '',
-                        cost: '',
-                        join: '',
-                        content: ''
-                    },
-                    nl: {
-                        title: '',
-                        location: '',
-                        cost: '',
-                        join: '',
-                        content: ''
-                    }
+                    en: { title: '', location: '', cost: '', join: '', content: '' },
+                    nl: { title: '', location: '', cost: '', join: '', content: '' }
                 },
                 date: '',
                 duration: ''
@@ -102,14 +87,9 @@
             load(data) {
                 if (!data) return;
 
-                // Format date for display
-                const d = data.date ? new Date(data.date) : new Date();
-                const pad = n => n.toString().padStart(2, '0');
-                const formattedDate = `${pad(d.getDate())}-${pad(d.getMonth()+1)}-${d.getFullYear()}`;
-
                 // Set form data
                 this.form.id = data.id;
-                this.form.date = formattedDate;
+                this.form.date = data.date;
 
                 // Set translations
                 ['en', 'nl'].forEach(lang => {

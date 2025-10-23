@@ -14,14 +14,9 @@
         onclick="window.location='{{ $href }}'" 
     @endif
 >   
-    {{-- <div> --}}
+    <div class="font-semibold">{{ $title }}</div>
     @if(!empty($date))
-        <div class="">
-            <div class="font-semibold">{{ $title }}</div>
-            <div class="text-sm text-gray-500">{{ $date }}</div>
-        </div>
-    @else 
-        <div class="font-semibold">{{ $title }}</div>
+        <div class="text-sm text-gray-500">{{ $date }}</div>
     @endif
 
     <div 

@@ -113,6 +113,7 @@ class ImageController extends Controller
     public static function processTextStyling(string $text): string
     {
         $text = preg_replace('/\*\*([^\*]+)\*\*/', '<span class="font-semibold">$1</span>', $text);
+        $text = preg_replace('/\*([^\*]+)\*/', '<span class="italic">$1</span>', $text);
         return $text;
     }
     

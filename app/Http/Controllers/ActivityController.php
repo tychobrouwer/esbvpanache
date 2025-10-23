@@ -35,7 +35,7 @@ class ActivityController extends Controller
         $validator = Validator::make($request->all(), (new ActivityAddRequest())->rules());
         
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors(), $formId);
+            return back()->withErrors($validator->errors(), $formId)->withInput();
         }
         
         Activity::create($validator->validated());
@@ -55,7 +55,7 @@ class ActivityController extends Controller
         $validator = Validator::make($request->all(), (new ActivityAddRequest())->rules());
         
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors(), $formId);
+            return back()->withErrors($validator->errors(), $formId)->withInput();
         }
         
         $activity->update($validator->validated());

@@ -28,6 +28,8 @@ Route::get('/playing/training', function () { return view('training'); })->name(
 Route::get('/playing/membership', function () { return view('membership'); })->name('membership');
 Route::get('/playing/competition', function () { return view('competition'); })->name('competition');
 
+Route::get('/announcements/{announcement}', [AnnouncementController::class, 'index'])->name('announcement');
+
 Route::get('/panache.ics', [CalendarController::class, 'index']);
 
 Route::get('/locale-switch', function() {    

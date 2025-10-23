@@ -1,12 +1,12 @@
 {
     "Contact": "Contact",
-    "board_contact": "Het contacteren van het bestuur is mogelijk door een email te versturen naar <a class='text-panache' href='mailto:bestuur@esbvpanache.nl'>bestuur@esbvpanache.nl</a>.",
+    "board_contact": "Het contacteren van het bestuur is mogelijk door een email te versturen naar <a class='text-panache-600' href='mailto:bestuur@esbvpanache.nl'>bestuur@esbvpanache.nl</a>.",
     "Chairperson": "Voorzitter",
     "Vice-chairperson": "Vicevoorzitter",
     "Secretary": "Secretaris",
     "Treasurer": "Penningmeester",
     "Confidential Contact Person": "Vertrouwelijke Contactpersoon",
-    "confidential_contact": "ALs je vertrouwelijke ondersteuning nodig hebt of een gevoelige kwestie wilt bespreken, de de aagewezen vertrouwenscontactpersson van het ESSF beschikbaar om je te helpen. We verwijzen je naar het <a class='text-panache' href='https://essf.nl/en/about/confidentiality-contact-point'>vertrouwenscontactpunt van het ESSF</a> voor meer informatie over hoe je contact kunt opnemen. We zetten ons in om een veilige en ondersteunende omgeving te bieden voor all leden. Als je contact wilt opnemen met iemand anders, zijn de mensen van het <a class='text-panache' href='https://ssceindhoven.tue.nl/en/about-us/social-safety'>social safety team van het SSC</a> ook beschikbaar.",
+    "confidential_contact": "ALs je vertrouwelijke ondersteuning nodig hebt of een gevoelige kwestie wilt bespreken, de de aagewezen vertrouwenscontactpersson van het ESSF beschikbaar om je te helpen. We verwijzen je naar het <a class='text-panache-600' href='https://essf.nl/en/about/confidentiality-contact-point'>vertrouwenscontactpunt van het ESSF</a> voor meer informatie over hoe je contact kunt opnemen. We zetten ons in om een veilige en ondersteunende omgeving te bieden voor all leden. Als je contact wilt opnemen met iemand anders, zijn de mensen van het <a class='text-panache-600' href='https://ssceindhoven.tue.nl/en/about-us/social-safety'>social safety team van het SSC</a> ook beschikbaar.",
     "Where can you find us?": "Waar kun je ons vinden?",
     "ssc_directions": "Op onze speelavonden zijn wij te vinden in Hal 1. Deze hal is te vinden aan de linkerzijde van de receptie. Tijdens de competitie zullen wij in verschillende hallen spelen. Kijk goed op de uitnodiging of vraag bij de receptie in welke hal je moet zijn."
 }

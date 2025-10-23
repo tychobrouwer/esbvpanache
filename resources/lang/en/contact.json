@@ -1,12 +1,12 @@
 {
     "Contact": "Contact",
-    "board_contact": "Contacting the board is possible through the contact form below or by sending an email to <a class='text-panache' href='mailto:board@esbvpanache.nl'>board@esbvpanache.nl</a>.",
+    "board_contact": "Contacting the board is possible through the contact form below or by sending an email to <a class='text-panache-600' href='mailto:board@esbvpanache.nl'>board@esbvpanache.nl</a>.",
     "Chairperson": "Chairperson",
     "Vice-chairperson": "Vice-chairperson",
     "Secretary": "Secretary",
     "Treasurer": "Treasurer",
     "Confidential Contact Person": "Confidential Contact Person",
-    "confidential_contact": "If you need confidential support or wish to discuss a sensitive matter, the designated <a class='text-panache' href='https://essf.nl/en/about/confidentiality-contact-point'>Confidential Contact Person of ESSF</a> is available to assist you. Please visit the Confidentiality Contact Point of the ESSF for more information on how to reach out. We are committed to providing a safe and supportive environment for all members. If you wish to contact someone else, the people of the <a class='text-panache' href='https://ssceindhoven.tue.nl/en/about-us/social-safety'>SSC social safety team</a> are also available.",
+    "confidential_contact": "If you need confidential support or wish to discuss a sensitive matter, the designated <a class='text-panache-600' href='https://essf.nl/en/about/confidentiality-contact-point'>Confidential Contact Person of ESSF</a> is available to assist you. Please visit the Confidentiality Contact Point of the ESSF for more information on how to reach out. We are committed to providing a safe and supportive environment for all members. If you wish to contact someone else, the people of the <a class='text-panache-600' href='https://ssceindhoven.tue.nl/en/about-us/social-safety'>SSC social safety team</a> are also available.",
     "Where can you find us?": "Where can you find us?",
     "ssc_directions": "During our playing evenings, you can find us in Hall 1. This hall is to the left from the reception. Competition matches take place in several different halls. Check your invitation carefully for the location, or ask at the reception."
 }

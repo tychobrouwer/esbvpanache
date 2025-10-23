@@ -4,7 +4,7 @@
 >
     <span 
         class="text-sm font-medium" 
-        :class="lang === 'en' ? 'text-panache' : 'text-gray-300'"
+        :class="lang === 'en' ? 'text-panache-600' : 'text-gray-300'"
     >
         EN
     </span>
@@ -18,7 +18,7 @@
     </div>
     <span 
         class="text-sm font-medium" 
-        :class="lang === 'nl' ? 'text-panache' : 'text-gray-300'"
+        :class="lang === 'nl' ? 'text-panache-600' : 'text-gray-300'"
     >
         NL
     </span>

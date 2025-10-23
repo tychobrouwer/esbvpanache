@@ -7,9 +7,18 @@ use App\Http\Requests\AnnouncementAddRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class AnnouncementController extends Controller
 {
+    /**
+     * Display a listing of the activities.
+     */
+    public function index(Announcement $announcement): View
+    {
+        return view('announcement', compact('announcement'));
+    }
+
     /**
      * Add the announcement information.
      */
@@ -21,7 +30,7 @@ class AnnouncementController extends Controller
         $validator = Validator::make($request->all(), (new AnnouncementAddRequest())->rules());
         
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors(), $formId);
+            return back()->withErrors($validator->errors(), $formId)->withInput();
         }
         
         Announcement::create($validator->validated());
@@ -40,7 +49,7 @@ class AnnouncementController extends Controller
         $validator = Validator::make($request->all(), (new AnnouncementAddRequest())->rules());
         
         if ($validator->fails()) {
-            return back()->withErrors($validator->errors(), $formId);
+            return back()->withErrors($validator->errors(), $formId)->withInput();
         }
         
         $announcement->update($validator->validated());

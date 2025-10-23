@@ -4,7 +4,7 @@
     :action="form.id ? '{{ route('board.update', '_ID_') }}'.replace('_ID_', form.id) :
         '{{ route('board.store') }}'"
     x-data="boardForm({
-        initialBoard: @js($board),
+        initialBoard: @js($board ? $board : session()->getOldInput()),
         formId: '{{ $formId }}'
     })">
     @csrf
@@ -109,11 +109,6 @@
             load(data) {
                 if (!data) return;
 
-                // Format date for display
-                const d = data.date ? new Date(data.date) : new Date();
-                const pad = n => n.toString().padStart(2, '0');
-                const formattedDate = `${pad(d.getDate())}-${pad(d.getMonth()+1)}-${d.getFullYear()}`;
-
                 // Set form data
                 this.form.id = data.id;
                 this.form.year = data.year;
@@ -122,6 +117,7 @@
                 this.form.secretary = data.secretary;
                 this.form.treasurer = data.treasurer;
                 this.form.slogan = data.slogan;
+                this.form.date = data.date;
 
                 // Set translations
                 ['en', 'nl'].forEach(lang => {
